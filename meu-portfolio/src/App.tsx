@@ -73,7 +73,7 @@ const App: React.FC = () => {
             
             {/* About and Contact in a flex layout */}
             <div className="mt-10 pt-6 border-t">
-              <h2 className="text-2xl font-bold text-red-500 mb-6">Sobre mim</h2>
+              <h2 className="text-2xl font-bold text-gray-800 mb-6">Sobre mim</h2>
               
               <div className="flex flex-col md:flex-row">
                 <div className="flex-1 md:pr-12">
