@@ -2,6 +2,7 @@
 import React from 'react';
 import * as SiIcons from 'react-icons/si';
 import * as FaIcons from 'react-icons/fa';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 // Tipo para criar wrapper components
 type IconWrapperProps = {
@@ -30,6 +31,8 @@ interface Tool {
 }
 
 const Tools: React.FC = () => {
+  const { t } = useLanguage();
+  
   const tools: Tool[] = [
     { name: 'Figma', icon: <FigmaIcon className="text-[#F24E1E] text-xl" /> },
     { name: 'Next.js', icon: <NextjsIcon className="text-black dark:text-white text-xl" /> },
@@ -48,7 +51,7 @@ const Tools: React.FC = () => {
 
   return (
     <div className="mb-10">
-      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-5 transition-colors duration-200">Ferramentas</h2>
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-5 transition-colors duration-200">{t('tools')}</h2>
       <div className="flex flex-wrap gap-3">
         {tools.map((tool, index) => (
           <div key={index} className="px-4 py-2.5 bg-white dark:bg-gray-700 shadow-sm rounded-lg text-sm flex items-center gap-2 border border-gray-100 dark:border-gray-600 dark:text-gray-200 transition-colors duration-200">

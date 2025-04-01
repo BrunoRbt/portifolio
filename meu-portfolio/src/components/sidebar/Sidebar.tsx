@@ -1,10 +1,11 @@
 // src/components/sidebar/Sidebar.tsx
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
 import * as BiIcons from 'react-icons/bi';
 import profileImage from '../../assets/f1e7d123-1034-4edf-91a5-9cf21ab035a5.jpg';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 // Tipo para criar wrapper components
 type IconWrapperProps = {
@@ -26,11 +27,33 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
   const { theme, toggleTheme } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
+  const [themeMenuOpen, setThemeMenuOpen] = useState(false);
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const themeMenuRef = useRef<HTMLDivElement>(null);
+  const languageMenuRef = useRef<HTMLDivElement>(null);
+  
+  // Fechar os menus quando clicar fora deles
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (themeMenuRef.current && !themeMenuRef.current.contains(event.target as Node)) {
+        setThemeMenuOpen(false);
+      }
+      if (languageMenuRef.current && !languageMenuRef.current.contains(event.target as Node)) {
+        setLanguageMenuOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   
   return (
     <div className="w-full h-full flex flex-col py-3 dark:bg-gray-800 transition-colors duration-200">
       <div className="px-4 py-3">
-        <h2 className="text-gray-500 dark:text-gray-400 text-xs uppercase font-medium tracking-wider">NAVEGAR</h2>
+        <h2 className="text-gray-500 dark:text-gray-400 text-xs uppercase font-medium tracking-wider">{language === 'pt' ? 'NAVEGAR' : 'NAVIGATE'}</h2>
       </div>
       
       <div 
@@ -38,7 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
         onClick={() => setActiveItem('about')}
       >
         <UserIcon className="text-gray-500 dark:text-gray-400" />
-        <span>Sobre mim</span>
+        <span>{t('about')}</span>
       </div>
       
       <div 
@@ -46,7 +69,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
         onClick={() => setActiveItem('projects')}
       >
         <StarIcon className="text-gray-500 dark:text-gray-400" />
-        <span>Projetos</span>
+        <span>{t('projects')}</span>
       </div>
       
       <div 
@@ -54,7 +77,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
         onClick={() => setActiveItem('contact')}
       >
         <CommentIcon className="text-gray-500 dark:text-gray-400" />
-        <span>Fale comigo</span>
+        <span>{t('contact')}</span>
       </div>
       
       <div 
@@ -62,44 +85,120 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
         onClick={() => setActiveItem('articles')}
       >
         <FileAltIcon className="text-gray-500 dark:text-gray-400" />
-        <span>Artigos</span>
+        <span>{t('articles')}</span>
       </div>
       
       <div className="mt-auto px-5 pt-4">
-        <h2 className="text-gray-500 dark:text-gray-400 text-xs uppercase font-medium tracking-wider mb-2">CONFIGURAÇÕES</h2>
+        <h2 className="text-gray-500 dark:text-gray-400 text-xs uppercase font-medium tracking-wider mb-2">{t('settings')}</h2>
         
-        <div className="sidebar-item dark:text-gray-300 dark:hover:bg-gray-700">
+        {/* Menu de Idioma */}
+        <div 
+          className="sidebar-item dark:text-gray-300 dark:hover:bg-gray-700 cursor-pointer relative"
+          onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
+          ref={languageMenuRef}
+        >
           <LanguageIcon className="text-gray-500 dark:text-gray-400" />
           <div className="flex flex-col">
-            <span>Idioma</span>
-            <span className="text-xs text-gray-400 dark:text-gray-500">Português</span>
+            <span>{t('language')}</span>
+            <span className="text-xs text-gray-400 dark:text-gray-500">
+              {language === 'pt' ? t('portuguese') : t('english')}
+            </span>
           </div>
           <span className="ml-auto">▼</span>
+          
+          {/* Dropdown Menu para Idioma */}
+          {languageMenuOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg py-1 z-10 top-full">
+              <div 
+                className={`px-4 py-2 text-sm cursor-pointer flex items-center ${language === 'pt' ? 'bg-gray-100 dark:bg-gray-600' : ''} hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-150`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLanguage('pt');
+                  setLanguageMenuOpen(false);
+                }}
+              >
+                <img src="https://flagcdn.com/w20/br.png" alt="Português" className="mr-2 w-5 h-auto" />
+                <span className="dark:text-gray-300">{t('portuguese')}</span>
+                {language === 'pt' && (
+                  <span className="ml-auto text-green-500 font-bold">✓</span>
+                )}
+              </div>
+              <div 
+                className={`px-4 py-2 text-sm cursor-pointer flex items-center ${language === 'en' ? 'bg-gray-100 dark:bg-gray-600' : ''} hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-150`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLanguage('en');
+                  setLanguageMenuOpen(false);
+                }}
+              >
+                <img src="https://flagcdn.com/w20/us.png" alt="English" className="mr-2 w-5 h-auto" />
+                <span className="dark:text-gray-300">{t('english')}</span>
+                {language === 'en' && (
+                  <span className="ml-auto text-green-500 font-bold">✓</span>
+                )}
+              </div>
+            </div>
+          )}
         </div>
         
+        {/* Menu de Tema */}
         <div 
-          className="sidebar-item dark:text-gray-300 dark:hover:bg-gray-700 cursor-pointer"
-          onClick={toggleTheme}
+          className="sidebar-item dark:text-gray-300 dark:hover:bg-gray-700 cursor-pointer relative"
+          onClick={() => setThemeMenuOpen(!themeMenuOpen)}
+          ref={themeMenuRef}
         >
           {theme === 'light' ? (
             <>
-              <MoonIcon className="text-gray-500 dark:text-gray-400" />
+              <div className="text-xl flex justify-center items-center w-5 h-5 text-yellow-500">☀️</div>
               <div className="flex flex-col">
-                <span>Tema</span>
-                <span className="text-xs text-gray-400 dark:text-gray-500">Claro</span>
+                <span>{t('theme')}</span>
+                <span className="text-xs text-gray-400 dark:text-gray-500">{t('lightTheme')}</span>
               </div>
             </>
           ) : (
             <>
-              {/* Em vez de usar um ícone de sol, usamos um emoji diretamente */}
-              <div className="text-xl flex justify-center items-center w-5 h-5 text-yellow-500">☀️</div>
+              <MoonIcon className="text-gray-500 dark:text-gray-400" />
               <div className="flex flex-col">
-                <span>Tema</span>
-                <span className="text-xs text-gray-400 dark:text-gray-500">Escuro</span>
+                <span>{t('theme')}</span>
+                <span className="text-xs text-gray-400 dark:text-gray-500">{t('darkTheme')}</span>
               </div>
             </>
           )}
           <span className="ml-auto">▼</span>
+          
+          {/* Dropdown Menu para Tema */}
+          {themeMenuOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg py-1 z-10 top-full">
+              <div 
+                className={`px-4 py-2 text-sm cursor-pointer flex items-center ${theme === 'light' ? 'bg-gray-100 dark:bg-gray-600' : ''} hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-150`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (theme !== 'light') toggleTheme();
+                  setThemeMenuOpen(false);
+                }}
+              >
+                <div className="text-xl flex justify-center items-center w-5 h-5 text-yellow-500 mr-2">☀️</div>
+                <span className="dark:text-gray-300">{t('lightTheme')}</span>
+                {theme === 'light' && (
+                  <span className="ml-auto text-green-500 font-bold">✓</span>
+                )}
+              </div>
+              <div 
+                className={`px-4 py-2 text-sm cursor-pointer flex items-center ${theme === 'dark' ? 'bg-gray-100 dark:bg-gray-600' : ''} hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-150`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (theme !== 'dark') toggleTheme();
+                  setThemeMenuOpen(false);
+                }}
+              >
+                <MoonIcon className="text-gray-500 dark:text-gray-400 mr-2" />
+                <span className="dark:text-gray-300">{t('darkTheme')}</span>
+                {theme === 'dark' && (
+                  <span className="ml-auto text-green-500 font-bold">✓</span>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
       
@@ -112,7 +211,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
           />
           <div>
             <p className="text-sm font-medium dark:text-white">BrunoRbt</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Profile</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t('profile')}</p>
           </div>
         </div>
       </div>

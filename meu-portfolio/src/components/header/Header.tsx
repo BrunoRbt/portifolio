@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface HeaderProps {
   name: string;
@@ -13,6 +14,7 @@ const Header: React.FC<HeaderProps> = ({
   backgroundImage, 
   profileImage 
 }) => {
+  const { t } = useLanguage();
   const [isProfileImageModalOpen, setIsProfileImageModalOpen] = useState(false);
   const [isBackgroundImageModalOpen, setIsBackgroundImageModalOpen] = useState(false);
 
@@ -46,8 +48,7 @@ const Header: React.FC<HeaderProps> = ({
           onClick={openBackgroundImageModal}
         >
           <div className="absolute inset-0 flex justify-between items-center px-12 md:px-16 text-white">
-            <h2 className="text-4xl md:text-5xl font-bold drop-shadow-lg">Codificando...</h2>
-            {/* Removida a tag h2 vazia */}
+            <h2 className="text-4xl md:text-5xl font-bold drop-shadow-lg">{t('coding')}</h2>
           </div>
         </div>
         
