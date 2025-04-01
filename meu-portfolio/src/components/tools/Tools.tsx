@@ -47,8 +47,8 @@ const Tools: React.FC = () => {
   ];
 
   return (
-    <div className="mb-12">
-      <h2 className="text-2xl font-bold text-red-500 mb-6">Ferramentas</h2>
+    <div className="mb-10">
+      <h2 className="text-2xl font-bold text-red-500 mb-5">Ferramentas</h2>
       <div className="flex flex-wrap gap-3">
         {tools.map((tool, index) => (
           <div key={index} className="px-4 py-2.5 bg-white shadow-sm rounded-lg text-sm flex items-center gap-2 border border-gray-100">

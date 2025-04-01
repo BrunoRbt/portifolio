@@ -24,9 +24,9 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
   return (
-    <div className="w-full h-full flex flex-col">
-      <div className="mb-6 px-2 py-2">
-        <h2 className="text-gray-400 text-xs uppercase font-medium tracking-wider">NAVEGAR</h2>
+    <div className="w-full h-full flex flex-col py-3">
+      <div className="px-4 py-3">
+        <h2 className="text-gray-500 text-xs uppercase font-medium tracking-wider">NAVEGAR</h2>
       </div>
       
       <div 
@@ -61,8 +61,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
         <span>Artigos</span>
       </div>
       
-      <div className="mt-auto mb-4">
-        <h2 className="text-gray-400 text-xs uppercase px-6 py-2">Configurações</h2>
+      <div className="mt-auto px-5 pt-4">
+        <h2 className="text-gray-500 text-xs uppercase font-medium tracking-wider mb-2">CONFIGURAÇÕES</h2>
         
         <div className="sidebar-item">
           <LanguageIcon className="text-gray-500" />

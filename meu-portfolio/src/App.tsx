@@ -36,23 +36,21 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background py-0">
-      <div className="max-w-[1440px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-5 min-h-screen">
-          {/* Sidebar */}
-          <div className="lg:col-span-1 p-6 bg-white shadow-sm">
-            <Sidebar activeItem={activeItem} setActiveItem={setActiveItem} />
-          </div>
+    <div className="flex flex-row min-h-screen">
+      {/* Sidebar */}
+      <div className="w-56 fixed left-0 top-0 bottom-0 bg-white border-r border-gray-200 overflow-y-auto">
+        <Sidebar activeItem={activeItem} setActiveItem={setActiveItem} />
+      </div>
+      
+      {/* Main Content */}
+      <div className="ml-56 flex-1 bg-background min-h-screen">
+        <div className="max-w-full p-4">
+          <Header name={profileData.name} title={profileData.title} />
           
-          {/* Main Content */}
-          <div className="lg:col-span-4 p-6">
-            <Header name={profileData.name} title={profileData.title} />
-            
-            <div className="mt-20 bg-white rounded-lg p-8">
-              <Tools />
-              <About aboutText={profileData.about} />
-              <Contact contacts={profileData.contacts} />
-            </div>
+          <div className="mt-20 bg-white rounded-lg p-8">
+            <Tools />
+            <About aboutText={profileData.about} />
+            <Contact contacts={profileData.contacts} />
           </div>
         </div>
       </div>
