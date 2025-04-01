@@ -11,8 +11,7 @@ interface AboutProps {
 
 const About: React.FC<AboutProps> = ({ aboutText }) => {
   return (
-    <div className="mb-12">
-      <h2 className="text-2xl font-bold text-red-500 mb-6">Sobre mim</h2>
+    <div>
       <div className="space-y-5">
         <p className="text-gray-700 leading-relaxed text-base">
           {aboutText.intro}

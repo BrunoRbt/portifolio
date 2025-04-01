@@ -49,8 +49,31 @@ const App: React.FC = () => {
           
           <div className="mt-20 bg-white rounded-lg p-8">
             <Tools />
-            <About aboutText={profileData.about} />
-            <Contact contacts={profileData.contacts} />
+            
+            {/* About and Contact in a flex layout */}
+            <div className="mt-10 pt-6 border-t">
+              <h2 className="text-2xl font-bold text-red-500 mb-6">Sobre mim</h2>
+              
+              <div className="flex flex-col md:flex-row">
+                <div className="flex-1 md:pr-12">
+                  <div className="space-y-5">
+                    <p className="text-gray-700 leading-relaxed text-base">
+                      {profileData.about.intro}
+                    </p>
+                    <p className="text-gray-700 leading-relaxed text-base">
+                      {profileData.about.freelance}
+                    </p>
+                    <p className="text-gray-700 leading-relaxed text-base">
+                      {profileData.about.contact}
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="mt-8 md:mt-0 md:w-72">
+                  <Contact contacts={profileData.contacts} />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -21,34 +21,34 @@ interface ContactProps {
 
 const Contact: React.FC<ContactProps> = ({ contacts }) => {
   return (
-    <div className="mt-12 border-t pt-8">
+    <div>
       <div className="grid grid-cols-1 gap-5">
-        <div className="flex items-center">
-          <div className="text-gray-500 w-28 font-medium text-sm">EMAIL</div>
+        <div className="flex flex-row items-center justify-between">
+          <div className="text-gray-500 text-sm font-medium">EMAIL</div>
           <div className="flex items-center gap-2">
             <span className="text-gray-800">{contacts.email}</span>
             <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
           </div>
         </div>
         
-        <div className="flex items-center">
-          <div className="text-gray-500 w-28 font-medium text-sm">WHATSAPP</div>
+        <div className="flex flex-row items-center justify-between">
+          <div className="text-gray-500 text-sm font-medium">WHATSAPP</div>
           <div className="flex items-center gap-2">
             <span className="text-gray-800">{contacts.whatsapp}</span>
             <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
           </div>
         </div>
         
-        <div className="flex items-center">
-          <div className="text-gray-500 w-28 font-medium text-sm">DRIBBBLE</div>
+        <div className="flex flex-row items-center justify-between">
+          <div className="text-gray-500 text-sm font-medium">DRIBBBLE</div>
           <div className="flex items-center gap-2">
             <span className="text-gray-800">{contacts.dribbble}</span>
             <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
           </div>
         </div>
         
-        <div className="flex items-center">
-          <div className="text-gray-500 w-28 font-medium text-sm">GITHUB</div>
+        <div className="flex flex-row items-center justify-between">
+          <div className="text-gray-500 text-sm font-medium">GITHUB</div>
           <div className="flex items-center gap-2">
             <span className="text-gray-800">{contacts.github}</span>
             <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
