@@ -24,9 +24,9 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
   return (
-    <div className="bg-white rounded-lg p-4 w-full h-full flex flex-col">
-      <div className="mb-4 px-2 py-4">
-        <h2 className="text-gray-400 text-xs uppercase">Navegar</h2>
+    <div className="w-full h-full flex flex-col">
+      <div className="mb-6 px-2 py-2">
+        <h2 className="text-gray-400 text-xs uppercase font-medium tracking-wider">NAVEGAR</h2>
       </div>
       
       <div 
@@ -86,12 +86,9 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
       <div className="mt-auto border-t pt-4 px-4">
         <div className="flex items-center gap-3">
           <img 
-            src="/profile-small.jpg" 
+            src="https://via.placeholder.com/40" 
             alt="Profile" 
             className="w-10 h-10 rounded-full"
-            onError={(e) => {
-              e.currentTarget.src = "https://via.placeholder.com/40";
-            }}
           />
           <div>
             <p className="text-sm font-medium">daviaxs</p>

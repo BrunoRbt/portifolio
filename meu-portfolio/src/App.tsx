@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './components/sidebar/Sidebar';
 import Header from './components/header/Header';
 import Tools from './components/tools/Tools';
@@ -8,6 +8,15 @@ import Contact from './components/contact/Contact';
 
 const App: React.FC = () => {
   const [activeItem, setActiveItem] = useState<string>('about');
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  // Usar useEffect para indicar que o componente foi montado
+  useEffect(() => {
+    setMounted(true);
+    return () => {
+      setMounted(false);
+    };
+  }, []);
 
   // Dados do perfil 
   const profileData = {
@@ -27,19 +36,19 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <div className="min-h-screen bg-background py-0">
+      <div className="max-w-[1440px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-5 min-h-screen">
           {/* Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 p-6 bg-white shadow-sm">
             <Sidebar activeItem={activeItem} setActiveItem={setActiveItem} />
           </div>
           
           {/* Main Content */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-4 p-6">
             <Header name={profileData.name} title={profileData.title} />
             
-            <div className="mt-16 bg-white rounded-lg p-8">
+            <div className="mt-20 bg-white rounded-lg p-8">
               <Tools />
               <About aboutText={profileData.about} />
               <Contact contacts={profileData.contacts} />

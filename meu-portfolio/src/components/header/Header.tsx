@@ -8,32 +8,29 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ name, title }) => {
   return (
-    <div className="w-full relative mb-16">
-      <div className="h-48 bg-gradient-to-r from-primary to-red-700 rounded-lg overflow-hidden relative">
+    <div className="w-full relative mb-20">
+      <div className="h-56 bg-gradient-to-r from-red-500 to-red-600 rounded-xl overflow-hidden relative">
         <div className="absolute inset-0 flex justify-between items-center px-16 text-white">
-          <h2 className="text-4xl font-bold">Web Designer</h2>
-          <h2 className="text-4xl font-bold">Web Developer</h2>
+          <h2 className="text-5xl font-bold">Web Designer</h2>
+          <h2 className="text-5xl font-bold">Web Developer</h2>
         </div>
       </div>
       
-      <div className="absolute -bottom-12 left-8 flex gap-6 items-end">
-        <div className="bg-gradient-to-br from-primary to-red-700 rounded-full p-1">
+      <div className="absolute -bottom-16 left-8 flex gap-6 items-end">
+        <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-full p-2 shadow-lg">
           <img 
-            src="/profile.jpg" 
+            src="https://via.placeholder.com/128" 
             alt={name} 
-            className="w-24 h-24 rounded-full"
-            onError={(e) => {
-              e.currentTarget.src = "https://via.placeholder.com/96";
-            }}
+            className="w-32 h-32 rounded-full"
           />
         </div>
         
         <div>
-          <h1 className="text-2xl font-bold">{name}</h1>
-          <p className="text-gray-600">{title}</p>
+          <h1 className="text-3xl font-bold">{name}</h1>
+          <p className="text-gray-600 text-lg">{title}</p>
         </div>
         
-        <button className="ml-auto bg-primary hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+        <button className="ml-auto bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
           <span>Fale comigo</span>
         </button>
       </div>

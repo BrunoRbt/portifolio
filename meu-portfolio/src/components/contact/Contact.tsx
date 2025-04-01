@@ -21,37 +21,37 @@ interface ContactProps {
 
 const Contact: React.FC<ContactProps> = ({ contacts }) => {
   return (
-    <div className="mt-10">
-      <div className="grid grid-cols-1 gap-4">
-        <div className="contact-item">
-          <div className="text-gray-500 w-24">EMAIL</div>
+    <div className="mt-12 border-t pt-8">
+      <div className="grid grid-cols-1 gap-5">
+        <div className="flex items-center">
+          <div className="text-gray-500 w-28 font-medium text-sm">EMAIL</div>
           <div className="flex items-center gap-2">
-            <span>{contacts.email}</span>
-            <LinkIcon className="text-gray-400 cursor-pointer hover:text-primary" />
+            <span className="text-gray-800">{contacts.email}</span>
+            <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
           </div>
         </div>
         
-        <div className="contact-item">
-          <div className="text-gray-500 w-24">WHATSAPP</div>
+        <div className="flex items-center">
+          <div className="text-gray-500 w-28 font-medium text-sm">WHATSAPP</div>
           <div className="flex items-center gap-2">
-            <span>{contacts.whatsapp}</span>
-            <LinkIcon className="text-gray-400 cursor-pointer hover:text-primary" />
+            <span className="text-gray-800">{contacts.whatsapp}</span>
+            <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
           </div>
         </div>
         
-        <div className="contact-item">
-          <div className="text-gray-500 w-24">DRIBBBLE</div>
+        <div className="flex items-center">
+          <div className="text-gray-500 w-28 font-medium text-sm">DRIBBBLE</div>
           <div className="flex items-center gap-2">
-            <span>{contacts.dribbble}</span>
-            <LinkIcon className="text-gray-400 cursor-pointer hover:text-primary" />
+            <span className="text-gray-800">{contacts.dribbble}</span>
+            <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
           </div>
         </div>
         
-        <div className="contact-item">
-          <div className="text-gray-500 w-24">GITHUB</div>
+        <div className="flex items-center">
+          <div className="text-gray-500 w-28 font-medium text-sm">GITHUB</div>
           <div className="flex items-center gap-2">
-            <span>{contacts.github}</span>
-            <LinkIcon className="text-gray-400 cursor-pointer hover:text-primary" />
+            <span className="text-gray-800">{contacts.github}</span>
+            <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
           </div>
         </div>
       </div>
