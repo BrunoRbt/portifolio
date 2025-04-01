@@ -16,18 +16,18 @@ const App: React.FC = () => {
   // Dados do perfil 
   const profileData = {
     name: 'Bruno Roberto',
-    title: 'Full Stack Developer',
+    title: 'Full Stack Python Developer',
     backgroundImage: backgroundImage,
     profileImage: profileImage,
     about: {
-      intro: 'Designer e Frontend Developer, 19 anos, especializado em criar interfaces intuitivas e aplicações eficientes. Iniciei minha carreira aos 15 anos como designer visual, criando capas de música e thumbnails, migrando para UI/UX logo em seguida. Atualmente, concentro-me em combinar design e desenvolvimento frontend para entregar soluções completas.',
-      freelance: 'Como freelancer, colaboro com diversos clientes para transformar ideias em produtos digitais que aliam estética e usabilidade. Meu objetivo é sempre alinhar as necessidades dos usuários às metas de negócio, garantindo soluções eficazes e satisfatórias.',
-      contact: 'Quer discutir um projeto? Vamos começar! eu.daviaxs@gmail.com :)'
+      intro: 'Desenvolvedor Full Stack Python com formação pela EBAC, com experiência adquirida em projetos de desenvolvimento web, aperfeiçoando habilidades em linguagens como HTML, CSS, JavaScript e frameworks como React e Bootstrap para criar interfaces responsivas e dinâmicas.',
+      freelance: 'Conhecimento na integração de front-end e back-end, utilizando ferramentas como Git para versionamento e automação, além de habilidades em APIs RESTful e GraphQL. Experiência em bancos de dados SQL e NoSQL, atuando com PostgreSQL, MySQL, MongoDB e SQLite.',
+      contact: 'Experiência em desenvolvimento back-end com Python, Django e Flask, incluindo a construção de aplicações escaláveis, configuração de ambientes Linux e uso de Docker para implantação. Competência em integração contínua com GitHub Actions e aplicação de metodologias ágeis como Scrum e Kanban.'
     },
     aboutEn: {
-      intro: 'Designer and Frontend Developer, 19 years old, specialized in creating intuitive interfaces and efficient applications. I started my career at 15 as a visual designer, creating music covers and thumbnails, quickly moving to UI/UX. Currently, I focus on combining design and frontend development to deliver complete solutions.',
-      freelance: 'As a freelancer, I collaborate with various clients to transform ideas into digital products that combine aesthetics and usability. My goal is always to align user needs with business goals, ensuring effective and satisfactory solutions.',
-      contact: 'Want to discuss a project? Let\'s start! eu.daviaxs@gmail.com :)'
+      intro: 'Full Stack Python Developer with education from EBAC, with experience gained in web development projects, enhancing skills in languages such as HTML, CSS, JavaScript, and frameworks like React and Bootstrap to create responsive and dynamic interfaces.',
+      freelance: 'Knowledge in front-end and back-end integration, using tools like Git for versioning and automation, along with skills in RESTful APIs and GraphQL. Experience with SQL and NoSQL databases, working with PostgreSQL, MySQL, MongoDB, and SQLite.',
+      contact: 'Experience in back-end development with Python, Django, and Flask, including building scalable applications, configuring Linux environments, and using Docker for deployment. Proficient in continuous integration with GitHub Actions and applying agile methodologies such as Scrum and Kanban.'
     },
     contacts: {
       email: {
