@@ -46,8 +46,8 @@ const Header: React.FC<HeaderProps> = ({
           onClick={openBackgroundImageModal}
         >
           <div className="absolute inset-0 flex justify-between items-center px-12 md:px-16 text-white">
-            <h2 className="text-4xl md:text-5xl font-bold drop-shadow-lg">Backend Developer</h2>
-            <h2 className="text-4xl md:text-5xl font-bold drop-shadow-lg">Frontend Developer</h2>
+            <h2 className="text-4xl md:text-5xl font-bold drop-shadow-lg">Codificando...</h2>
+            <h2 className="text-4xl md:text-5xl font-bold drop-shadow-lg"></h2>
           </div>
         </div>
         

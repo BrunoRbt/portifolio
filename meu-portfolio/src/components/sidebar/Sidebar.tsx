@@ -92,8 +92,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
             className="w-10 h-10 rounded-full"
           />
           <div>
-            <p className="text-sm font-medium">daviaxs</p>
-            <p className="text-xs text-gray-500">UI/UX Designer & Web Developer</p>
+            <p className="text-sm font-medium">BrunoRbt</p>
+            <p className="text-xs text-gray-500">Profile</p>
           </div>
         </div>
       </div>
