@@ -22,8 +22,8 @@ const App: React.FC = () => {
 
   // Dados do perfil 
   const profileData = {
-    name: 'Davi Alves',
-    title: 'Pleno UI/UX Designer & Desenvolvedor Frontend',
+    name: 'Bruno Roberto',
+    title: 'Full Stack Developer',
     backgroundImage: backgroundImage, // Nova imagem de fundo
     profileImage: profileImage, // Imagem de perfil original
     about: {
