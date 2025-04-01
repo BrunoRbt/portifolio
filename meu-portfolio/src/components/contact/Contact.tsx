@@ -40,7 +40,7 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
             href={contacts.email.url} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-gray-800 hover:text-red-500 transition-colors"
+            className="text-gray-800 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors"
           >
             {contacts.email.value}
           </a>
@@ -49,7 +49,7 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
             target="_blank" 
             rel="noopener noreferrer"
           >
-            <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
+            <LinkIcon className="text-gray-400 dark:text-gray-500 cursor-pointer hover:text-red-500 dark:hover:text-red-400 transition-colors" />
           </a>
         </div>
         
@@ -58,7 +58,7 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
             href={contacts.whatsapp.url} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-gray-800 hover:text-red-500 transition-colors"
+            className="text-gray-800 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors"
           >
             {contacts.whatsapp.value}
           </a>
@@ -67,7 +67,7 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
             target="_blank" 
             rel="noopener noreferrer"
           >
-            <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
+            <LinkIcon className="text-gray-400 dark:text-gray-500 cursor-pointer hover:text-red-500 dark:hover:text-red-400 transition-colors" />
           </a>
         </div>
         
@@ -76,7 +76,7 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
             href={contacts.dribbble.url} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-gray-800 hover:text-red-500 transition-colors"
+            className="text-gray-800 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors"
           >
             {contacts.dribbble.value}
           </a>
@@ -85,7 +85,7 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
             target="_blank" 
             rel="noopener noreferrer"
           >
-            <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
+            <LinkIcon className="text-gray-400 dark:text-gray-500 cursor-pointer hover:text-red-500 dark:hover:text-red-400 transition-colors" />
           </a>
         </div>
         
@@ -94,7 +94,7 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
             href={contacts.github.url} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-gray-800 hover:text-red-500 transition-colors"
+            className="text-gray-800 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors"
           >
             {contacts.github.value}
           </a>
@@ -103,7 +103,7 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
             target="_blank" 
             rel="noopener noreferrer"
           >
-            <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
+            <LinkIcon className="text-gray-400 dark:text-gray-500 cursor-pointer hover:text-red-500 dark:hover:text-red-400 transition-colors" />
           </a>
         </div>
       </div>

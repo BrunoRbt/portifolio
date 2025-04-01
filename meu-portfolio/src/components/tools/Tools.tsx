@@ -32,7 +32,7 @@ interface Tool {
 const Tools: React.FC = () => {
   const tools: Tool[] = [
     { name: 'Figma', icon: <FigmaIcon className="text-[#F24E1E] text-xl" /> },
-    { name: 'Next.js', icon: <NextjsIcon className="text-black text-xl" /> },
+    { name: 'Next.js', icon: <NextjsIcon className="text-black dark:text-white text-xl" /> },
     { name: 'TypeScript', icon: <TypescriptIcon className="text-[#3178C6] text-xl" /> },
     { name: 'JavaScript', icon: <JavascriptIcon className="text-[#F7DF1E] text-xl" /> },
     { name: 'TailwindCSS', icon: <TailwindcssIcon className="text-[#06B6D4] text-xl" /> },
@@ -40,18 +40,18 @@ const Tools: React.FC = () => {
     { name: 'Photoshop', icon: <PhotoshopIcon className="text-[#31A8FF] text-xl" /> },
     { name: 'React JS', icon: <ReactIcon className="text-[#61DAFB] text-xl" /> },
     { name: 'Node', icon: <NodejsIcon className="text-[#339933] text-xl" /> },
-    { name: 'Prisma', icon: <PrismaIcon className="text-[#2D3748] text-xl" /> },
-    { name: 'Fastify', icon: <FastifyIcon className="text-black text-xl" /> },
+    { name: 'Prisma', icon: <PrismaIcon className="text-[#2D3748] dark:text-white text-xl" /> },
+    { name: 'Fastify', icon: <FastifyIcon className="text-black dark:text-white text-xl" /> },
     { name: 'CSS', icon: <CssIcon className="text-[#1572B6] text-xl" /> },
     { name: 'Git', icon: <GitIcon className="text-[#F05032] text-xl" /> },
   ];
 
   return (
     <div className="mb-10">
-      <h2 className="text-2xl font-bold text-gray-800 mb-5">Ferramentas</h2>
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-5 transition-colors duration-200">Ferramentas</h2>
       <div className="flex flex-wrap gap-3">
         {tools.map((tool, index) => (
-          <div key={index} className="px-4 py-2.5 bg-white shadow-sm rounded-lg text-sm flex items-center gap-2 border border-gray-100">
+          <div key={index} className="px-4 py-2.5 bg-white dark:bg-gray-700 shadow-sm rounded-lg text-sm flex items-center gap-2 border border-gray-100 dark:border-gray-600 dark:text-gray-200 transition-colors duration-200">
             {tool.icon}
             <span className="font-medium">{tool.name}</span>
           </div>

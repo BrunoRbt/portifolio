@@ -47,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({
         >
           <div className="absolute inset-0 flex justify-between items-center px-12 md:px-16 text-white">
             <h2 className="text-4xl md:text-5xl font-bold drop-shadow-lg">Codificando...</h2>
-            <h2 className="text-4xl md:text-5xl font-bold drop-shadow-lg"></h2>
+            {/* Removida a tag h2 vazia */}
           </div>
         </div>
         
@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({
             className="bg-gradient-to-br from-[#000428] via-[#004e92] to-[#000428] rounded-full p-2 shadow-lg cursor-pointer"
             onClick={openProfileImageModal}
           >
-            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white">
+            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 transition-colors duration-200">
               <img 
                 src={profileImage} 
                 alt={name} 
@@ -66,8 +66,8 @@ const Header: React.FC<HeaderProps> = ({
           </div>
           
           <div>
-            <h1 className="text-3xl font-bold">{name}</h1>
-            <p className="text-gray-600 text-lg">{title}</p>
+            <h1 className="text-3xl font-bold dark:text-white transition-colors duration-200">{name}</h1>
+            <p className="text-gray-600 dark:text-gray-400 text-lg transition-colors duration-200">{title}</p>
           </div>
         </div>
       </div>
