@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
   // Dados do perfil 
   const profileData = {
-    name: 'Davi Alves',
+    name: 'Bruno Roberto',
     title: 'Pleno UI/UX Designer & Desenvolvedor Frontend',
     about: {
       intro: 'Designer e Frontend Developer, 19 anos, especializado em criar interfaces intuitivas e aplicações eficientes. Iniciei minha carreira aos 15 anos como designer visual, criando capas de música e thumbnails, migrando para UI/UX logo em seguida. Atualmente, concentro-me em combinar design e desenvolvimento frontend para entregar soluções completas.',

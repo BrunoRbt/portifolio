@@ -9,7 +9,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ name, title }) => {
   return (
     <div className="w-full relative mb-24">
-      <div className="h-60 bg-gradient-to-r from-red-500 to-red-600 rounded-xl overflow-hidden relative">
+      <div className="h-60 bg-gradient-to-r from-[#000428] via-[#004e92] to-[#000428] rounded-xl overflow-hidden relative">
         <div className="absolute inset-0 flex justify-between items-center px-12 md:px-16 text-white">
           <h2 className="text-4xl md:text-5xl font-bold">Web Designer</h2>
           <h2 className="text-4xl md:text-5xl font-bold">Web Developer</h2>
@@ -17,7 +17,7 @@ const Header: React.FC<HeaderProps> = ({ name, title }) => {
       </div>
       
       <div className="absolute -bottom-16 left-6 flex gap-6 items-end">
-        <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-full p-2 shadow-lg">
+        <div className="bg-gradient-to-br from-[#000428] via-[#004e92] to-[#000428] rounded-full p-2 shadow-lg">
           <img 
             src="https://via.placeholder.com/128" 
             alt={name} 
