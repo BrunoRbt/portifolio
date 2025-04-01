@@ -31,6 +31,7 @@ const Tools: React.FC = () => {
     { name: 'Git', icon: '📊' },
     { name: 'Linux', icon: '🐧' },
     { name: 'AWS', icon: '☁️' },
+    { name: 'GCP', icon: '🌐' }, // Google Cloud Platform adicionado
     { name: 'Heroku', icon: '🟣' },
     { name: 'Figma', icon: '🖌️' },
     { name: 'Photoshop', icon: '🖼️' },
