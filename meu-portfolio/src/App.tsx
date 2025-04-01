@@ -5,6 +5,7 @@ import Header from './components/header/Header';
 import Tools from './components/tools/Tools';
 import About from './components/about/About';
 import Contact from './components/contact/Contact';
+import profileImage from './assets/IMG_20220410_230921.jpg';
 
 const App: React.FC = () => {
   const [activeItem, setActiveItem] = useState<string>('about');
@@ -20,8 +21,9 @@ const App: React.FC = () => {
 
   // Dados do perfil 
   const profileData = {
-    name: 'Bruno Roberto',
+    name: 'Davi Alves',
     title: 'Pleno UI/UX Designer & Desenvolvedor Frontend',
+    profileImage: profileImage,
     about: {
       intro: 'Designer e Frontend Developer, 19 anos, especializado em criar interfaces intuitivas e aplicações eficientes. Iniciei minha carreira aos 15 anos como designer visual, criando capas de música e thumbnails, migrando para UI/UX logo em seguida. Atualmente, concentro-me em combinar design e desenvolvimento frontend para entregar soluções completas.',
       freelance: 'Como freelancer, colaboro com diversos clientes para transformar ideias em produtos digitais que aliam estética e usabilidade. Meu objetivo é sempre alinhar as necessidades dos usuários às metas de negócio, garantindo soluções eficazes e satisfatórias.',
@@ -45,7 +47,11 @@ const App: React.FC = () => {
       {/* Main Content */}
       <div className="ml-56 flex-1 bg-background min-h-screen">
         <div className="max-w-full p-4">
-          <Header name={profileData.name} title={profileData.title} />
+          <Header 
+            name={profileData.name} 
+            title={profileData.title} 
+            profileImage={profileData.profileImage} 
+          />
           
           <div className="mt-20 bg-white rounded-lg p-8">
             <Tools />
@@ -56,17 +62,7 @@ const App: React.FC = () => {
               
               <div className="flex flex-col md:flex-row">
                 <div className="flex-1 md:pr-12">
-                  <div className="space-y-5">
-                    <p className="text-gray-700 leading-relaxed text-base">
-                      {profileData.about.intro}
-                    </p>
-                    <p className="text-gray-700 leading-relaxed text-base">
-                      {profileData.about.freelance}
-                    </p>
-                    <p className="text-gray-700 leading-relaxed text-base">
-                      {profileData.about.contact}
-                    </p>
-                  </div>
+                  <About aboutText={profileData.about} />
                 </div>
                 
                 <div className="mt-8 md:mt-0 md:w-72">
