@@ -3,10 +3,16 @@ import React, { useState } from 'react';
 interface HeaderProps {
   name: string;
   title: string;
-  profileImage?: string;
+  backgroundImage: string;
+  profileImage: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ name, title, profileImage }) => {
+const Header: React.FC<HeaderProps> = ({ 
+  name, 
+  title, 
+  backgroundImage, 
+  profileImage 
+}) => {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   const openImageModal = () => {
@@ -20,10 +26,16 @@ const Header: React.FC<HeaderProps> = ({ name, title, profileImage }) => {
   return (
     <>
       <div className="w-full relative mb-24">
-        <div className="h-60 bg-gradient-to-r from-[#000428] via-[#004e92] to-[#000428] rounded-xl overflow-hidden relative">
+        <div 
+          className="h-60 rounded-xl overflow-hidden relative bg-cover bg-center"
+          style={{ 
+            backgroundImage: `url(${backgroundImage})`,
+            filter: 'brightness(0.7)' // Reduz o brilho para melhor legibilidade do texto
+          }}
+        >
           <div className="absolute inset-0 flex justify-between items-center px-12 md:px-16 text-white">
-            <h2 className="text-4xl md:text-5xl font-bold">Web Designer</h2>
-            <h2 className="text-4xl md:text-5xl font-bold">Web Developer</h2>
+            <h2 className="text-4xl md:text-5xl font-bold drop-shadow-lg">Web Designer</h2>
+            <h2 className="text-4xl md:text-5xl font-bold drop-shadow-lg">Web Developer</h2>
           </div>
         </div>
         
@@ -34,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ name, title, profileImage }) => {
           >
             <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white">
               <img 
-                src={profileImage || "https://via.placeholder.com/128"} 
+                src={profileImage} 
                 alt={name} 
                 className="w-full h-full object-cover object-top"
               />
@@ -55,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({ name, title, profileImage }) => {
         >
           <div className="w-[500px] h-[500px] flex items-center justify-center">
             <img 
-              src={profileImage || "https://via.placeholder.com/128"} 
+              src={profileImage} 
               alt={name} 
               className="max-w-full max-h-full object-contain"
             />

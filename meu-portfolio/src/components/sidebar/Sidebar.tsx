@@ -3,6 +3,7 @@ import React from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
 import * as BiIcons from 'react-icons/bi';
+import profileImage from '../../assets/f1e7d123-1034-4edf-91a5-9cf21ab035a5.jpg'; // Adicione o import da nova imagem
 
 // Tipo para criar wrapper components
 type IconWrapperProps = {
@@ -86,7 +87,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
       <div className="mt-auto border-t pt-4 px-4">
         <div className="flex items-center gap-3">
           <img 
-            src="https://via.placeholder.com/40" 
+            src={profileImage} // Substitua pela nova imagem importada
             alt="Profile" 
             className="w-10 h-10 rounded-full"
           />

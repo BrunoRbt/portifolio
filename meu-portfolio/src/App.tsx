@@ -5,7 +5,8 @@ import Header from './components/header/Header';
 import Tools from './components/tools/Tools';
 import About from './components/about/About';
 import Contact from './components/contact/Contact';
-import profileImage from './assets/IMG_20220410_230921.jpg';
+import backgroundImage from './assets/f1e7d123-1034-4edf-91a5-9cf21ab035a5.jpg'; // Imagem do fundo
+import profileImage from './assets/IMG_20220410_230921.jpg'; // Imagem de perfil original
 
 const App: React.FC = () => {
   const [activeItem, setActiveItem] = useState<string>('about');
@@ -23,7 +24,8 @@ const App: React.FC = () => {
   const profileData = {
     name: 'Davi Alves',
     title: 'Pleno UI/UX Designer & Desenvolvedor Frontend',
-    profileImage: profileImage,
+    backgroundImage: backgroundImage, // Nova imagem de fundo
+    profileImage: profileImage, // Imagem de perfil original
     about: {
       intro: 'Designer e Frontend Developer, 19 anos, especializado em criar interfaces intuitivas e aplicações eficientes. Iniciei minha carreira aos 15 anos como designer visual, criando capas de música e thumbnails, migrando para UI/UX logo em seguida. Atualmente, concentro-me em combinar design e desenvolvimento frontend para entregar soluções completas.',
       freelance: 'Como freelancer, colaboro com diversos clientes para transformar ideias em produtos digitais que aliam estética e usabilidade. Meu objetivo é sempre alinhar as necessidades dos usuários às metas de negócio, garantindo soluções eficazes e satisfatórias.',
@@ -50,7 +52,8 @@ const App: React.FC = () => {
           <Header 
             name={profileData.name} 
             title={profileData.title} 
-            profileImage={profileData.profileImage} 
+            backgroundImage={profileData.backgroundImage}
+            profileImage={profileData.profileImage}
           />
           
           <div className="mt-20 bg-white rounded-lg p-8">
