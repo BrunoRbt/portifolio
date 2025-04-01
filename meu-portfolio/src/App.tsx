@@ -24,18 +24,30 @@ const App: React.FC = () => {
   const profileData = {
     name: 'Bruno Roberto',
     title: 'Full Stack Developer',
-    backgroundImage: backgroundImage, // Nova imagem de fundo
-    profileImage: profileImage, // Imagem de perfil original
+    backgroundImage: backgroundImage,
+    profileImage: profileImage,
     about: {
       intro: 'Designer e Frontend Developer, 19 anos, especializado em criar interfaces intuitivas e aplicações eficientes. Iniciei minha carreira aos 15 anos como designer visual, criando capas de música e thumbnails, migrando para UI/UX logo em seguida. Atualmente, concentro-me em combinar design e desenvolvimento frontend para entregar soluções completas.',
       freelance: 'Como freelancer, colaboro com diversos clientes para transformar ideias em produtos digitais que aliam estética e usabilidade. Meu objetivo é sempre alinhar as necessidades dos usuários às metas de negócio, garantindo soluções eficazes e satisfatórias.',
       contact: 'Quer discutir um projeto? Vamos começar! eu.daviaxs@gmail.com :)'
     },
     contacts: {
-      email: 'eu@daviaxs.com',
-      whatsapp: 'whatsapp.com',
-      dribbble: 'dribbble.com',
-      github: 'github.com'
+      email: {
+        value: 'richard2oliver1@gmail.com',
+        url: 'https://mail.google.com/mail/?view=cm&fs=1&to=richard2oliver1@gmail.com&su=Contato%20atrav%C3%A9s%20do%20Portf%C3%B3lio&body=Ol%C3%A1%20Richard%2C%0A%0AEstou%20entrando%20em%20contato%20atrav%C3%A9s%20do%20seu%20portf%C3%B3lio.'
+      },
+      whatsapp: {
+        value: 'Whatssap',
+        url: 'https://w.app/us4u1n'
+      },
+      dribbble: {
+        value: 'daviaxs',
+        url: 'https://dribbble.com/daviaxs'
+      },
+      github: {
+        value: 'Github',
+        url: 'https://github.com/BrunoRbt'
+      }
     }
   };
 

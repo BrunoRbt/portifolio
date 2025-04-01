@@ -10,10 +10,22 @@ export interface ProfileData {
     contact: string;
   };
   contacts: {
-    email: string;
-    whatsapp: string;
-    dribbble: string;
-    github: string;
+    email: {
+      value: string;
+      url: string;
+    };
+    whatsapp: {
+      value: string;
+      url: string;
+    };
+    dribbble: {
+      value: string;
+      url: string;
+    };
+    github: {
+      value: string;
+      url: string;
+    };
   };
 }
 

@@ -12,10 +12,22 @@ const LinkIcon: React.FC<IconWrapperProps> = ({ className }) => <FaIcons.FaLink 
 
 interface ContactProps {
   contacts: {
-    email: string;
-    whatsapp: string;
-    dribbble: string;
-    github: string;
+    email: {
+      value: string;
+      url: string;
+    };
+    whatsapp: {
+      value: string;
+      url: string;
+    };
+    dribbble: {
+      value: string;
+      url: string;
+    };
+    github: {
+      value: string;
+      url: string;
+    };
   };
 }
 
@@ -24,23 +36,75 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
     <div>
       <div className="grid grid-cols-1 gap-3 text-right">
         <div className="flex justify-end items-center gap-2">
-          <span className="text-gray-800">{contacts.email}</span>
-          <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
+          <a 
+            href={contacts.email.url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-gray-800 hover:text-red-500 transition-colors"
+          >
+            {contacts.email.value}
+          </a>
+          <a 
+            href={contacts.email.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
+          </a>
         </div>
         
         <div className="flex justify-end items-center gap-2">
-          <span className="text-gray-800">{contacts.whatsapp}</span>
-          <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
+          <a 
+            href={contacts.whatsapp.url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-gray-800 hover:text-red-500 transition-colors"
+          >
+            {contacts.whatsapp.value}
+          </a>
+          <a 
+            href={contacts.whatsapp.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
+          </a>
         </div>
         
         <div className="flex justify-end items-center gap-2">
-          <span className="text-gray-800">{contacts.dribbble}</span>
-          <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
+          <a 
+            href={contacts.dribbble.url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-gray-800 hover:text-red-500 transition-colors"
+          >
+            {contacts.dribbble.value}
+          </a>
+          <a 
+            href={contacts.dribbble.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
+          </a>
         </div>
         
         <div className="flex justify-end items-center gap-2">
-          <span className="text-gray-800">{contacts.github}</span>
-          <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
+          <a 
+            href={contacts.github.url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-gray-800 hover:text-red-500 transition-colors"
+          >
+            {contacts.github.value}
+          </a>
+          <a 
+            href={contacts.github.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <LinkIcon className="text-gray-400 cursor-pointer hover:text-red-500" />
+          </a>
         </div>
       </div>
     </div>
