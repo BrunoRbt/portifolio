@@ -29,10 +29,6 @@ const Header: React.FC<HeaderProps> = ({ name, title }) => {
           <h1 className="text-3xl font-bold">{name}</h1>
           <p className="text-gray-600 text-lg">{title}</p>
         </div>
-        
-        <button className="ml-auto bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-colors">
-          <span>Fale comigo</span>
-        </button>
       </div>
     </div>
   );
