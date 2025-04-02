@@ -5,12 +5,15 @@ import Header from './components/header/Header';
 import Tools from './components/tools/Tools';
 import About from './components/about/About';
 import Contact from './components/contact/Contact';
-import Certifications from './components/certifications/Certifications'; // Importar novo componente
-import CertificationModal from './components/modals/CertificationModal'; // Importar o modal
+import Certifications from './components/certifications/Certifications';
+import CertificationModal from './components/modals/CertificationModal';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import backgroundImage from './assets/f1e7d123-1034-4edf-91a5-9cf21ab035a5.jpg';
 import profileImage from './assets/IMG_20220410_230921.jpg';
+
+// Importação dos PDFs
+import pdfJornada from './assets/Desenvolvedor Full Stack Python Jornada de aprendizagem Fase 15.pdf';
 
 // Componente interno que usa o contexto de idioma
 const AppContent: React.FC = () => {
@@ -22,6 +25,10 @@ const AppContent: React.FC = () => {
   const [isCertModalOpen, setIsCertModalOpen] = useState<boolean>(false);
   const [currentCertPdf, setCurrentCertPdf] = useState<string>('');
   const [currentCertTitle, setCurrentCertTitle] = useState<string>('');
+  const [currentGoogleDriveId, setCurrentGoogleDriveId] = useState<string>('');
+
+  // Estado para o modal de PDF de artigos
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const checkIfMobile = () => {
@@ -39,9 +46,12 @@ const AppContent: React.FC = () => {
   }, []);
 
   // Função para abrir o modal de certificado
-  const handleOpenCertificate = (pdfUrl: string, title: string) => {
+  const handleOpenCertificate = (pdfUrl: string, title: string, googleDriveId: string) => {
+    console.log("Abrindo certificado:", title, pdfUrl);
+    console.log("Google Drive ID:", googleDriveId);
     setCurrentCertPdf(pdfUrl);
     setCurrentCertTitle(title);
+    setCurrentGoogleDriveId(googleDriveId);
     setIsCertModalOpen(true);
   };
 
@@ -81,50 +91,6 @@ const AppContent: React.FC = () => {
     }
   };
 
-  // Função para renderizar o conteúdo baseado no item ativo
-  const renderActiveContent = () => {
-    switch (activeItem) {
-      case 'about':
-        return (
-          <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 transition-colors duration-200">{t('about')}</h2>
-            
-            <div className="flex flex-col md:flex-row">
-              <div className="flex-1 md:pr-12">
-                <About aboutText={profileData.about} aboutTextEn={profileData.aboutEn} />
-              </div>
-              
-              <div className="mt-8 md:mt-0 md:w-72">
-                <Contact contacts={profileData.contacts} />
-              </div>
-            </div>
-          </div>
-        );
-      case 'certifications':
-        return (
-          <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
-            <Certifications onOpenPdf={handleOpenCertificate} />
-          </div>
-        );
-      default:
-        return (
-          <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 transition-colors duration-200">{t('about')}</h2>
-            
-            <div className="flex flex-col md:flex-row">
-              <div className="flex-1 md:pr-12">
-                <About aboutText={profileData.about} aboutTextEn={profileData.aboutEn} />
-              </div>
-              
-              <div className="mt-8 md:mt-0 md:w-72">
-                <Contact contacts={profileData.contacts} />
-              </div>
-            </div>
-          </div>
-        );
-    }
-  };
-
   return (
     <div className="flex flex-col min-h-screen dark:bg-background-dark transition-colors duration-200">
       {/* Navigation */}
@@ -144,10 +110,37 @@ const AppContent: React.FC = () => {
             <Tools />
             
             {/* Conteúdo baseado no item ativo */}
-            {renderActiveContent()}
+            {activeItem === 'certifications' ? (
+              <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
+                <Certifications onOpenPdf={handleOpenCertificate} />
+              </div>
+            ) : (
+              <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 transition-colors duration-200">{t('about')}</h2>
+                
+                <div className="flex flex-col md:flex-row">
+                  <div className="flex-1 md:pr-12">
+                    <About aboutText={profileData.about} aboutTextEn={profileData.aboutEn} />
+                  </div>
+                  
+                  <div className="mt-8 md:mt-0 md:w-72">
+                    <Contact contacts={profileData.contacts} />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Modal para visualizar PDF de jornada/artigos */}
+      <CertificationModal
+        isOpen={isPdfModalOpen}
+        onClose={() => setIsPdfModalOpen(false)}
+        pdfSrc={pdfJornada}
+        title={t('articles')}
+        googleDriveId="1cZ0kKOcjM5trTxnO3_VhHZQQdz7k2N1W" // ID do Google Drive para o PDF de artigos
+      />
 
       {/* Modal para visualizar certificados */}
       <CertificationModal
@@ -155,6 +148,7 @@ const AppContent: React.FC = () => {
         onClose={() => setIsCertModalOpen(false)}
         pdfSrc={currentCertPdf}
         title={currentCertTitle}
+        googleDriveId={currentGoogleDriveId}
       />
     </div>
   );

@@ -7,7 +7,10 @@ interface PdfViewerProps {
   googleDriveFileId?: string;
 }
 
-const PdfViewer: React.FC<PdfViewerProps> = ({ src, googleDriveFileId = "1cZ0kKOcjM5trTxnO3_VhHZQQdz7k2N1W" }) => {
+const PdfViewer: React.FC<PdfViewerProps> = ({ 
+  src, 
+  googleDriveFileId = "1cZ0kKOcjM5trTxnO3_VhHZQQdz7k2N1W" // ID padrão para o artigo
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -74,11 +77,35 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ src, googleDriveFileId = "1cZ0kKO
 
   // Renderização específica para dispositivos móveis usando Google Drive Viewer
   if (isMobile) {
-    // Formato de URL de visualização do Google Drive
+    // URLs possíveis para tentar melhorar a visualização do PDF
     const googleDriveViewerUrl = `https://drive.google.com/file/d/${googleDriveFileId}/preview`;
     
+    // Estilos inline para garantir que o iframe ocupe toda a área disponível
+    const mobileIframeStyle = {
+      width: '100%',
+      height: '100%',
+      border: 'none',
+      margin: 0,
+      padding: 0,
+      position: 'absolute' as 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    };
+    
     return (
-      <div className="google-pdf-container">
+      <div 
+        className="google-pdf-container" 
+        style={{ 
+          width: '100%', 
+          height: '100%', 
+          overflow: 'hidden',
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
         {isLoading && (
           <div className="mobile-loading">
             <div className="loading-spinner"></div>
@@ -87,7 +114,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ src, googleDriveFileId = "1cZ0kKO
         )}
         <iframe 
           src={googleDriveViewerUrl}
-          className="google-pdf-iframe"
+          style={mobileIframeStyle}
           onLoad={handleIframeLoad}
           allowFullScreen
         />

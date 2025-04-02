@@ -8,13 +8,15 @@ interface PdfModalProps {
   onClose: () => void;
   language: string;
   pdfSrc: string;
+  googleDriveId?: string;
 }
 
 const PdfModal: React.FC<PdfModalProps> = ({ 
   isOpen, 
   onClose,
   language,
-  pdfSrc
+  pdfSrc,
+  googleDriveId
 }) => {
   useEffect(() => {
     // Desabilitar o clique direito durante a exibição do modal
@@ -78,7 +80,7 @@ const PdfModal: React.FC<PdfModalProps> = ({
           </button>
         </div>
         <div className="flex-grow relative">
-          <PdfViewer src={pdfSrc} />
+          <PdfViewer src={pdfSrc} googleDriveFileId={googleDriveId} />
         </div>
       </div>
     </div>,

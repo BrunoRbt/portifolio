@@ -10,7 +10,7 @@ import {
   CommentIcon, 
   FileAltIcon, 
   MoonIcon,
-  GraduationIcon // Adicionando o ícone de formação
+  GraduationIcon
 } from './SidebarIcons';
 import { 
   NavigationItem, 
@@ -112,6 +112,21 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
       delete window.openPdfModal;
     };
   }, []);
+
+  // Manipulador de clique para itens de navegação
+  const handleNavItemClick = (item: string) => {
+    setActiveItem(item);
+    
+    // Apenas abrir modais para itens específicos, não para formações
+    if (item === 'projects') {
+      setIsProjectsModalOpen(true);
+    } else if (item === 'contact') {
+      setIsContactModalOpen(true);
+    } else if (item === 'articles') {
+      setIsPdfModalOpen(true);
+    }
+    // Para 'about' e 'certifications', apenas mudar o activeItem sem abrir modal
+  };
   
   return (
     <>
@@ -127,45 +142,36 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
           icon={<UserIcon className="text-gray-500 dark:text-gray-400" />}
           label={t('about')}
           isActive={activeItem === 'about'}
-          onClick={() => setActiveItem('about')}
+          onClick={() => handleNavItemClick('about')}
         />
         
         <NavigationItem 
           icon={<StarIcon className="text-gray-500 dark:text-gray-400" />}
           label={t('projects')}
           isActive={activeItem === 'projects'}
-          onClick={() => {
-            setActiveItem('projects');
-            setIsProjectsModalOpen(true);
-          }}
+          onClick={() => handleNavItemClick('projects')}
         />
         
         <NavigationItem 
           icon={<CommentIcon className="text-gray-500 dark:text-gray-400" />}
           label={t('contact')}
           isActive={activeItem === 'contact'}
-          onClick={() => {
-            setActiveItem('contact');
-            setIsContactModalOpen(true);
-          }}
+          onClick={() => handleNavItemClick('contact')}
         />
         
         <NavigationItem 
           icon={<FileAltIcon className="text-gray-500 dark:text-gray-400" />}
           label={t('articles')}
           isActive={activeItem === 'articles'}
-          onClick={() => {
-            setActiveItem('articles');
-            setIsPdfModalOpen(true);
-          }}
+          onClick={() => handleNavItemClick('articles')}
         />
         
-        {/* Novo item para Formações */}
+        {/* Item para Formações - Sem abrir modal */}
         <NavigationItem 
           icon={<GraduationIcon className="text-gray-500 dark:text-gray-400" />}
           label={t('certifications')}
           isActive={activeItem === 'certifications'}
-          onClick={() => setActiveItem('certifications')}
+          onClick={() => handleNavItemClick('certifications')}
         />
         
         {/* Configurações */}
@@ -258,6 +264,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
         onClose={() => setIsPdfModalOpen(false)} 
         language={language}
         pdfSrc={pdfJornada}
+        googleDriveId="1cZ0kKOcjM5trTxnO3_VhHZQQdz7k2N1W" // ID para o artigo no Google Drive
       />
       
       <ContactModal 

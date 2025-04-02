@@ -1,6 +1,6 @@
 // src/components/sidebar/styles/pdfStyles.ts
 
-// CSS para esconder botões de controle do visualizador de PDF
+// CSS para esconder botões de controle do visualizador de PDF e melhorar a visualização em mobile
 export const hidePdfControlsStyle = `
   @media print {
     body { display: none; }
@@ -54,17 +54,48 @@ export const hidePdfControlsStyle = `
     border: none;
   }
   
-  /* Google PDF Viewer styles */
+  /* Google PDF Viewer styles - melhorados para mobile */
   .google-pdf-container {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
   }
   
   .google-pdf-iframe {
     width: 100%;
     height: 100%;
     border: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+  }
+  
+  /* Estilos específicos para mobile */
+  @media (max-width: 768px) {
+    .pdf-container,
+    .google-pdf-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .pdf-viewer,
+    .google-pdf-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
   }
   
   .mobile-loading {

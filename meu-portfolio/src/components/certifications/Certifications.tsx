@@ -1,5 +1,5 @@
 // src/components/certifications/Certifications.tsx
-import React, { useState } from 'react';
+import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 // Importando os PDFs
@@ -14,6 +14,7 @@ interface CertificateProps {
   duration: string;
   modules: string;
   pdfUrl: string;
+  googleDriveId: string;
   color: string;
   onClick: () => void;
 }
@@ -60,7 +61,7 @@ const Certificate: React.FC<CertificateProps> = ({
 };
 
 interface CertificationsProps {
-  onOpenPdf: (pdfUrl: string, title: string) => void;
+  onOpenPdf: (pdfUrl: string, title: string, googleDriveId: string) => void;
 }
 
 const Certifications: React.FC<CertificationsProps> = ({ onOpenPdf }) => {
@@ -74,6 +75,7 @@ const Certifications: React.FC<CertificationsProps> = ({ onOpenPdf }) => {
       duration: "+75 horas",
       modules: "62 módulos",
       pdfUrl: pythonCertificate,
+      googleDriveId: "1OdDQCwtv51KGYwtG57cUme0DIgV8LdEK",
       color: "border-indigo-500"
     },
     {
@@ -83,6 +85,7 @@ const Certifications: React.FC<CertificationsProps> = ({ onOpenPdf }) => {
       duration: "10 horas",
       modules: "Curso livre",
       pdfUrl: tiCertificate,
+      googleDriveId: "1wxUUeGK-oA_HatytA6ayurjZXsua5a9-",
       color: "border-green-500"
     },
     {
@@ -92,9 +95,18 @@ const Certifications: React.FC<CertificationsProps> = ({ onOpenPdf }) => {
       duration: "5 horas",
       modules: "5 módulos",
       pdfUrl: careerCertificate,
+      googleDriveId: "1xpLOoTDbiiHt5jrfe53Ywtr3dhiQbSoC",
       color: "border-red-500"
     }
   ];
+
+  // Adicionar console.log para debugging
+  const handleCertificateClick = (cert: any) => {
+    console.log("Certificado clicado:", cert.title);
+    console.log("URL do PDF:", cert.pdfUrl);
+    console.log("Google Drive ID:", cert.googleDriveId);
+    onOpenPdf(cert.pdfUrl, cert.title, cert.googleDriveId);
+  };
 
   return (
     <div>
@@ -112,8 +124,9 @@ const Certifications: React.FC<CertificationsProps> = ({ onOpenPdf }) => {
             duration={cert.duration}
             modules={cert.modules}
             pdfUrl={cert.pdfUrl}
+            googleDriveId={cert.googleDriveId}
             color={cert.color}
-            onClick={() => onOpenPdf(cert.pdfUrl, cert.title)}
+            onClick={() => handleCertificateClick(cert)}
           />
         ))}
       </div>
