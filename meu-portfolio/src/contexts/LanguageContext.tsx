@@ -17,6 +17,7 @@ export const translations = {
     projects: 'Projetos',
     contact: 'Fale comigo',
     articles: 'Artigos',
+    certifications: 'Formações', // Nova tradução
     
     // Configurações
     settings: 'CONFIGURAÇÕES',
@@ -43,6 +44,7 @@ export const translations = {
     projects: 'Projects',
     contact: 'Contact me',
     articles: 'Articles',
+    certifications: 'Education', // Nova tradução em inglês
     
     // Settings
     settings: 'SETTINGS',

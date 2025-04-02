@@ -5,6 +5,8 @@ import Header from './components/header/Header';
 import Tools from './components/tools/Tools';
 import About from './components/about/About';
 import Contact from './components/contact/Contact';
+import Certifications from './components/certifications/Certifications'; // Importar novo componente
+import CertificationModal from './components/modals/CertificationModal'; // Importar o modal
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import backgroundImage from './assets/f1e7d123-1034-4edf-91a5-9cf21ab035a5.jpg';
@@ -15,6 +17,11 @@ const AppContent: React.FC = () => {
   const [activeItem, setActiveItem] = useState<string>('about');
   const { t } = useLanguage();
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  
+  // Estado para o modal de certificados
+  const [isCertModalOpen, setIsCertModalOpen] = useState<boolean>(false);
+  const [currentCertPdf, setCurrentCertPdf] = useState<string>('');
+  const [currentCertTitle, setCurrentCertTitle] = useState<string>('');
 
   useEffect(() => {
     const checkIfMobile = () => {
@@ -30,6 +37,13 @@ const AppContent: React.FC = () => {
     // Limpar event listener
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
+
+  // Função para abrir o modal de certificado
+  const handleOpenCertificate = (pdfUrl: string, title: string) => {
+    setCurrentCertPdf(pdfUrl);
+    setCurrentCertTitle(title);
+    setIsCertModalOpen(true);
+  };
 
   // Dados do perfil 
   const profileData = {
@@ -67,6 +81,50 @@ const AppContent: React.FC = () => {
     }
   };
 
+  // Função para renderizar o conteúdo baseado no item ativo
+  const renderActiveContent = () => {
+    switch (activeItem) {
+      case 'about':
+        return (
+          <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 transition-colors duration-200">{t('about')}</h2>
+            
+            <div className="flex flex-col md:flex-row">
+              <div className="flex-1 md:pr-12">
+                <About aboutText={profileData.about} aboutTextEn={profileData.aboutEn} />
+              </div>
+              
+              <div className="mt-8 md:mt-0 md:w-72">
+                <Contact contacts={profileData.contacts} />
+              </div>
+            </div>
+          </div>
+        );
+      case 'certifications':
+        return (
+          <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
+            <Certifications onOpenPdf={handleOpenCertificate} />
+          </div>
+        );
+      default:
+        return (
+          <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 transition-colors duration-200">{t('about')}</h2>
+            
+            <div className="flex flex-col md:flex-row">
+              <div className="flex-1 md:pr-12">
+                <About aboutText={profileData.about} aboutTextEn={profileData.aboutEn} />
+              </div>
+              
+              <div className="mt-8 md:mt-0 md:w-72">
+                <Contact contacts={profileData.contacts} />
+              </div>
+            </div>
+          </div>
+        );
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen dark:bg-background-dark transition-colors duration-200">
       {/* Navigation */}
@@ -85,23 +143,19 @@ const AppContent: React.FC = () => {
           <div className="mt-20 bg-white dark:bg-gray-800 rounded-lg p-4 md:p-8 transition-colors duration-200">
             <Tools />
             
-            {/* About and Contact in a flex layout */}
-            <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 transition-colors duration-200">{t('about')}</h2>
-              
-              <div className="flex flex-col md:flex-row">
-                <div className="flex-1 md:pr-12">
-                  <About aboutText={profileData.about} aboutTextEn={profileData.aboutEn} />
-                </div>
-                
-                <div className="mt-8 md:mt-0 md:w-72">
-                  <Contact contacts={profileData.contacts} />
-                </div>
-              </div>
-            </div>
+            {/* Conteúdo baseado no item ativo */}
+            {renderActiveContent()}
           </div>
         </div>
       </div>
+
+      {/* Modal para visualizar certificados */}
+      <CertificationModal
+        isOpen={isCertModalOpen}
+        onClose={() => setIsCertModalOpen(false)}
+        pdfSrc={currentCertPdf}
+        title={currentCertTitle}
+      />
     </div>
   );
 };

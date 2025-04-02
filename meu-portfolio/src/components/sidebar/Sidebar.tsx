@@ -9,7 +9,8 @@ import {
   StarIcon, 
   CommentIcon, 
   FileAltIcon, 
-  MoonIcon 
+  MoonIcon,
+  GraduationIcon // Adicionando o ícone de formação
 } from './SidebarIcons';
 import { 
   NavigationItem, 
@@ -157,6 +158,14 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
             setActiveItem('articles');
             setIsPdfModalOpen(true);
           }}
+        />
+        
+        {/* Novo item para Formações */}
+        <NavigationItem 
+          icon={<GraduationIcon className="text-gray-500 dark:text-gray-400" />}
+          label={t('certifications')}
+          isActive={activeItem === 'certifications'}
+          onClick={() => setActiveItem('certifications')}
         />
         
         {/* Configurações */}
