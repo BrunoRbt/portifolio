@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// src/components/header/Header.tsx
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 interface HeaderProps {
@@ -33,6 +34,28 @@ const Header: React.FC<HeaderProps> = ({
   const closeBackgroundImageModal = () => {
     setIsBackgroundImageModalOpen(false);
   };
+
+  // Adicionar listener para tecla ESC
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (isProfileImageModalOpen) {
+          closeProfileImageModal();
+        }
+        if (isBackgroundImageModalOpen) {
+          closeBackgroundImageModal();
+        }
+      }
+    };
+
+    if (isProfileImageModalOpen || isBackgroundImageModalOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isProfileImageModalOpen, isBackgroundImageModalOpen]);
 
   return (
     <>

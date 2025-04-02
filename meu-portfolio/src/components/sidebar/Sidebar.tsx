@@ -158,7 +158,14 @@ const PdfModal: React.FC<{ isOpen: boolean; onClose: () => void; language: strin
     };
 
     // Desabilitar atalhos de teclado comuns para impressão/salvar
+    // E adicionar suporte para fechar com ESC
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Fechar modal com ESC
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+      
       // Ctrl+P (print), Ctrl+S (save), Ctrl+Shift+S (save as)
       if ((e.ctrlKey && (e.key === 'p' || e.key === 's')) || 
           (e.ctrlKey && e.shiftKey && e.key === 's')) {
@@ -176,7 +183,7 @@ const PdfModal: React.FC<{ isOpen: boolean; onClose: () => void; language: strin
       document.removeEventListener('contextmenu', handleContextMenu);
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
