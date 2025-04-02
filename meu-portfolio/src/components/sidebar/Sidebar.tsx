@@ -247,7 +247,14 @@ const ContactModal: React.FC<{ isOpen: boolean; onClose: () => void; language: s
               </div>
               <div className="ml-4 flex-1">
                 <h4 className="text-sm font-medium text-gray-900 dark:text-white">{language === 'pt' ? 'WhatsApp' : 'WhatsApp'}</h4>
-                <p className="text-gray-600 dark:text-gray-300">{contacts.whatsapp.value}</p>
+                <a 
+                  href={contacts.whatsapp.url} 
+                  className="text-green-600 dark:text-green-400 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {contacts.whatsapp.value}
+                </a>
               </div>
               <a 
                 href={contacts.whatsapp.url} 
