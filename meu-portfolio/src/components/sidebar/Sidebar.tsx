@@ -23,6 +23,24 @@ const FileAltIcon: React.FC<IconWrapperProps> = ({ className }) => <FaIcons.FaFi
 const LanguageIcon: React.FC<IconWrapperProps> = ({ className }) => <MdIcons.MdLanguage className={className} />;
 const MoonIcon: React.FC<IconWrapperProps> = ({ className }) => <BiIcons.BiMoon className={className} />;
 
+// Remover o ChevronRightIcon e adicionar o novo ArrowRightSvg
+const ArrowRightSvg: React.FC<IconWrapperProps> = ({ className }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    className={className} 
+    width="16" 
+    height="16" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+  >
+    <path d="M9 18l6-6-6-6"/>
+  </svg>
+);
+
 // CSS para esconder botões de controle do visualizador de PDF
 const hidePdfControlsStyle = `
   @media print {
@@ -144,6 +162,135 @@ const PdfViewer: React.FC<{ src: string }> = ({ src }) => {
   );
 };
 
+// Componente Modal para contatos
+const ContactModal: React.FC<{ isOpen: boolean; onClose: () => void; language: string; contacts: any }> = ({ 
+  isOpen, 
+  onClose,
+  language,
+  contacts
+}) => {
+  useEffect(() => {
+    // Fechar com a tecla ESC
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return ReactDOM.createPortal(
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-80 z-[9999] flex justify-center items-center p-4"
+      onClick={onClose}
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
+    >
+      <div 
+        className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg overflow-hidden flex flex-col"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex justify-between items-center p-4 bg-gray-100 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+          <h3 className="text-lg font-medium dark:text-white">
+            {language === 'pt' ? 'Fale Comigo' : 'Contact Me'}
+          </h3>
+          <button 
+            className="text-gray-500 hover:text-red-500 dark:text-gray-300 dark:hover:text-red-400"
+            onClick={onClose}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <div className="p-6">
+          <div className="space-y-6">
+            {/* Email */}
+            <div className="flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+              <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-full">
+                <FaIcons.FaEnvelope className="text-blue-500 dark:text-blue-300 text-xl" />
+              </div>
+              <div className="ml-4 flex-1">
+                <h4 className="text-sm font-medium text-gray-900 dark:text-white">{language === 'pt' ? 'Email' : 'Email'}</h4>
+                <a 
+                  href={contacts.email.url} 
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {contacts.email.value}
+                </a>
+              </div>
+              <a 
+                href={contacts.email.url} 
+                className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ArrowRightSvg />
+              </a>
+            </div>
+            
+            {/* WhatsApp */}
+            <div className="flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+              <div className="bg-green-100 dark:bg-green-900 p-3 rounded-full">
+                <FaIcons.FaWhatsapp className="text-green-500 dark:text-green-300 text-xl" />
+              </div>
+              <div className="ml-4 flex-1">
+                <h4 className="text-sm font-medium text-gray-900 dark:text-white">{language === 'pt' ? 'WhatsApp' : 'WhatsApp'}</h4>
+                <p className="text-gray-600 dark:text-gray-300">{contacts.whatsapp.value}</p>
+              </div>
+              <a 
+                href={contacts.whatsapp.url} 
+                className="p-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ArrowRightSvg />
+              </a>
+            </div>
+            
+            {/* GitHub e Dribbble */}
+            <div className="flex space-x-4">
+              {/* GitHub */}
+              <a 
+                href={contacts.github.url} 
+                className="flex items-center justify-center flex-1 p-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaIcons.FaGithub className="mr-2" />
+                <span>GitHub</span>
+              </a>
+              
+              {/* Dribbble */}
+              <a 
+                href={contacts.dribbble.url} 
+                className="flex items-center justify-center flex-1 p-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaIcons.FaDribbble className="mr-2" />
+                <span>Dribbble</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+};
+
 // Componente Modal separado para ser renderizado no portal
 const PdfModal: React.FC<{ isOpen: boolean; onClose: () => void; language: string }> = ({ 
   isOpen, 
@@ -233,8 +380,29 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false); // Novo estado
   const themeMenuRef = useRef<HTMLDivElement>(null);
   const languageMenuRef = useRef<HTMLDivElement>(null);
+  
+  // Dados de contato
+  const contacts = {
+    email: {
+      value: 'richard2oliver1@gmail.com',
+      url: 'https://mail.google.com/mail/?view=cm&fs=1&to=richard2oliver1@gmail.com&su=Contato%20Portfolio'
+    },
+    whatsapp: {
+      value: 'WhatsApp',
+      url: 'https://w.app/us4u1n'
+    },
+    dribbble: {
+      value: 'daviaxs',
+      url: ''
+    },
+    github: {
+      value: 'Github',
+      url: 'https://github.com/BrunoRbt'
+    }
+  };
   
   // Fechar os menus quando clicar fora deles
   useEffect(() => {
@@ -295,7 +463,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
         
         <div 
           className={`sidebar-item dark:text-gray-300 dark:hover:bg-gray-700 ${activeItem === 'contact' ? 'active dark:bg-gray-700' : ''}`}
-          onClick={() => setActiveItem('contact')}
+          onClick={() => {
+            setActiveItem('contact');
+            setIsContactModalOpen(true); // Abre o modal ao clicar
+          }}
         >
           <CommentIcon className="text-gray-500 dark:text-gray-400" />
           <span>{t('contact')}</span>
@@ -446,6 +617,14 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
         isOpen={isPdfModalOpen} 
         onClose={() => setIsPdfModalOpen(false)} 
         language={language}
+      />
+      
+      {/* Modal de Contato */}
+      <ContactModal 
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+        language={language}
+        contacts={contacts}
       />
     </>
   );
