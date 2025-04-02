@@ -20,10 +20,6 @@ interface ContactProps {
       value: string;
       url: string;
     };
-    dribbble: {
-      value: string;
-      url: string;
-    };
     github: {
       value: string;
       url: string;
@@ -64,24 +60,6 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
           </a>
           <a 
             href={contacts.whatsapp.url} 
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
-            <LinkIcon className="text-gray-400 dark:text-gray-500 cursor-pointer hover:text-red-500 dark:hover:text-red-400 transition-colors" />
-          </a>
-        </div>
-        
-        <div className="flex justify-end items-center gap-2">
-          <a 
-            href={contacts.dribbble.url} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-gray-800 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors"
-          >
-            {contacts.dribbble.value}
-          </a>
-          <a 
-            href={contacts.dribbble.url} 
             target="_blank" 
             rel="noopener noreferrer"
           >

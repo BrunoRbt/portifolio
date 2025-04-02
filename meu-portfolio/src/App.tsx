@@ -40,10 +40,6 @@ const AppContent: React.FC = () => {
         value: 'Whatssap',
         url: 'https://w.app/us4u1n'
       },
-      dribbble: {
-        value: 'daviaxs',
-        url: ''
-      },
       github: {
         value: 'Github',
         url: 'https://github.com/BrunoRbt'

@@ -15,6 +15,22 @@ type IconWrapperProps = {
   className?: string;
 };
 
+// Add this type definition near the top of the file
+type Contacts = {
+  email: {
+    value: string;
+    url: string;
+  };
+  whatsapp: {
+    value: string;
+    url: string;
+  };
+  github: {
+    value: string;
+    url: string;
+  };
+};
+
 // Criando wrapper components para cada ícone
 const UserIcon: React.FC<IconWrapperProps> = ({ className }) => <FaIcons.FaUser className={className} />;
 const StarIcon: React.FC<IconWrapperProps> = ({ className }) => <FaIcons.FaStar className={className} />;
@@ -163,7 +179,12 @@ const PdfViewer: React.FC<{ src: string }> = ({ src }) => {
 };
 
 // Componente Modal para contatos
-const ContactModal: React.FC<{ isOpen: boolean; onClose: () => void; language: string; contacts: any }> = ({ 
+const ContactModal: React.FC<{ 
+  isOpen: boolean; 
+  onClose: () => void; 
+  language: string; 
+  contacts: Contacts 
+}> = ({ 
   isOpen, 
   onClose,
   language,
@@ -266,30 +287,16 @@ const ContactModal: React.FC<{ isOpen: boolean; onClose: () => void; language: s
               </a>
             </div>
             
-            {/* GitHub e Dribbble */}
-            <div className="flex space-x-4">
-              {/* GitHub */}
-              <a 
-                href={contacts.github.url} 
-                className="flex items-center justify-center flex-1 p-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaIcons.FaGithub className="mr-2" />
-                <span>GitHub</span>
-              </a>
-              
-              {/* Dribbble */}
-              <a 
-                href={contacts.dribbble.url} 
-                className="flex items-center justify-center flex-1 p-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaIcons.FaDribbble className="mr-2" />
-                <span>Dribbble</span>
-              </a>
-            </div>
+            {/* GitHub */}
+            <a 
+              href={contacts.github.url} 
+              className="flex items-center justify-center w-full p-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaIcons.FaGithub className="mr-2" />
+              <span>GitHub</span>
+            </a>
           </div>
         </div>
       </div>
@@ -400,10 +407,6 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
     whatsapp: {
       value: 'WhatsApp',
       url: 'https://w.app/us4u1n'
-    },
-    dribbble: {
-      value: 'daviaxs',
-      url: ''
     },
     github: {
       value: 'Github',
