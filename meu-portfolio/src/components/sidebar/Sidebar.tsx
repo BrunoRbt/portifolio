@@ -117,13 +117,79 @@ const hidePdfControlsStyle = `
     height: 100%;
     border: none;
   }
+  
+  /* Google PDF Viewer styles */
+  .google-pdf-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .google-pdf-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  .mobile-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: 10;
+  }
+  
+  .loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+    margin-bottom: 16px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 `;
 
-// Solução para visualizar o PDF com controles ocultos
+// Verifica se é um dispositivo móvel
+const isMobileDevice = () => {
+  return (
+    typeof window !== 'undefined' &&
+    (window.innerWidth <= 768 ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      ))
+  );
+};
+
+// Solução otimizada para visualizar o PDF
 const PdfViewer: React.FC<{ src: string }> = ({ src }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  
+  // ID do documento no Google Drive
+  const googleDriveFileId = "1cZ0kKOcjM5trTxnO3_VhHZQQdz7k2N1W";
   
   useEffect(() => {
+    // Verifica se é dispositivo móvel
+    setIsMobile(isMobileDevice());
+    
+    // Atualiza o status de carregamento após um tempo
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+    
     // Tenta ocultar os botões após o carregamento do visualizador
     const applyButtonHiding = () => {
       if (containerRef.current) {
@@ -154,15 +220,52 @@ const PdfViewer: React.FC<{ src: string }> = ({ src }) => {
       }
     };
 
-    const timer = setTimeout(applyButtonHiding, 1000);
+    const buttonTimer = setTimeout(applyButtonHiding, 1000);
     window.addEventListener('load', applyButtonHiding);
+    
+    // Adiciona listener para mudanças de orientação em dispositivos móveis
+    const handleResize = () => {
+      setIsMobile(isMobileDevice());
+    };
+    
+    window.addEventListener('resize', handleResize);
     
     return () => {
       clearTimeout(timer);
+      clearTimeout(buttonTimer);
       window.removeEventListener('load', applyButtonHiding);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
+  const handleIframeLoad = () => {
+    setIsLoading(false);
+  };
+
+  // Renderização específica para dispositivos móveis usando Google Drive Viewer
+  if (isMobile) {
+    // Formato de URL de visualização do Google Drive: https://drive.google.com/file/d/{FILE_ID}/preview
+    const googleDriveViewerUrl = `https://drive.google.com/file/d/${googleDriveFileId}/preview`;
+    
+    return (
+      <div className="google-pdf-container">
+        {isLoading && (
+          <div className="mobile-loading">
+            <div className="loading-spinner"></div>
+            <p>Carregando PDF...</p>
+          </div>
+        )}
+        <iframe 
+          src={googleDriveViewerUrl}
+          className="google-pdf-iframe"
+          onLoad={handleIframeLoad}
+          allowFullScreen
+        />
+      </div>
+    );
+  }
+
+  // Renderização para desktop
   return (
     <div ref={containerRef} className="pdf-container">
       {/* Aplica HTML/Data/Object para melhor compatibilidade entre navegadores */}
