@@ -35,12 +35,13 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
   return (
     <div>
       <div className="grid grid-cols-1 gap-3 text-right">
+        {/* Email - Red hover */}
         <div className="flex justify-end items-center gap-2">
           <a 
             href={contacts.email.url} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-gray-800 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+            className="text-gray-800 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
           >
             {contacts.email.value}
           </a>
@@ -49,16 +50,17 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
             target="_blank" 
             rel="noopener noreferrer"
           >
-            <LinkIcon className="text-gray-400 dark:text-gray-500 cursor-pointer hover:text-red-500 dark:hover:text-red-400 transition-colors" />
+            <LinkIcon className="text-gray-400 dark:text-gray-500 cursor-pointer hover:text-blue-500 dark:hover:text-blue-400 transition-colors" />
           </a>
         </div>
         
+        {/* WhatsApp - Green hover */}
         <div className="flex justify-end items-center gap-2">
           <a 
             href={contacts.whatsapp.url} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-gray-800 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+            className="text-gray-800 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors"
           >
             {contacts.whatsapp.value}
           </a>
@@ -67,16 +69,17 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
             target="_blank" 
             rel="noopener noreferrer"
           >
-            <LinkIcon className="text-gray-400 dark:text-gray-500 cursor-pointer hover:text-red-500 dark:hover:text-red-400 transition-colors" />
+            <LinkIcon className="text-gray-400 dark:text-gray-500 cursor-pointer hover:text-green-500 dark:hover:text-green-400 transition-colors" />
           </a>
         </div>
         
+        {/* GitHub - Purple hover */}
         <div className="flex justify-end items-center gap-2">
           <a 
             href={contacts.github.url} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-gray-800 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+            className="text-gray-800 dark:text-gray-300 hover:text-purple-500 dark:hover:text-purple-400 transition-colors"
           >
             {contacts.github.value}
           </a>
@@ -85,10 +88,11 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
             target="_blank" 
             rel="noopener noreferrer"
           >
-            <LinkIcon className="text-gray-400 dark:text-gray-500 cursor-pointer hover:text-red-500 dark:hover:text-red-400 transition-colors" />
+            <LinkIcon className="text-gray-400 dark:text-gray-500 cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors" />
           </a>
         </div>
         
+        {/* LinkedIn - Blue hover */}
         <div className="flex justify-end items-center gap-2">
           <a 
             href={contacts.linkedin.url} 
