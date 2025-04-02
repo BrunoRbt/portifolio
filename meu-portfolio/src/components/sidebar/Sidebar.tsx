@@ -242,16 +242,16 @@ const ContactModal: React.FC<{
         
         <div className="p-6">
           <div className="space-y-6">
-            {/* Email */}
+            {/* Email - Corrigido o layout para mobile */}
             <div className="flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
-              <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-full">
+              <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-full flex-shrink-0">
                 <FaIcons.FaEnvelope className="text-blue-500 dark:text-blue-300 text-xl" />
               </div>
-              <div className="ml-4 flex-1">
+              <div className="ml-4 flex-1 min-w-0">
                 <h4 className="text-sm font-medium text-gray-900 dark:text-white">{language === 'pt' ? 'Email' : 'Email'}</h4>
                 <a 
                   href={contacts.email.url} 
-                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                  className="text-blue-600 dark:text-blue-400 hover:underline text-sm truncate block"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -260,24 +260,25 @@ const ContactModal: React.FC<{
               </div>
               <a 
                 href={contacts.email.url} 
-                className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
+                className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors flex-shrink-0 ml-2"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Enviar email"
               >
                 <ArrowRightSvg />
               </a>
             </div>
             
-            {/* WhatsApp */}
+            {/* WhatsApp - Corrigido o layout para mobile */}
             <div className="flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
-              <div className="bg-green-100 dark:bg-green-900 p-3 rounded-full">
+              <div className="bg-green-100 dark:bg-green-900 p-3 rounded-full flex-shrink-0">
                 <FaIcons.FaWhatsapp className="text-green-500 dark:text-green-300 text-xl" />
               </div>
               <div className="ml-4 flex-1">
                 <h4 className="text-sm font-medium text-gray-900 dark:text-white">{language === 'pt' ? 'WhatsApp' : 'WhatsApp'}</h4>
                 <a 
                   href={contacts.whatsapp.url} 
-                  className="text-green-600 dark:text-green-400 hover:underline"
+                  className="text-green-600 dark:text-green-400 hover:underline text-sm"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -286,9 +287,10 @@ const ContactModal: React.FC<{
               </div>
               <a 
                 href={contacts.whatsapp.url} 
-                className="p-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors"
+                className="p-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors flex-shrink-0 ml-2"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Contato via WhatsApp"
               >
                 <ArrowRightSvg />
               </a>
