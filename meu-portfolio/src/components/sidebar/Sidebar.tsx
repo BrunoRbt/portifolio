@@ -482,6 +482,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
     github: {
       value: 'Github',
       url: 'https://github.com/BrunoRbt'
+    },
+    linkedin: {  // Nova entrada
+      value: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/bruno-roberto-devr/'
     }
   };
   

@@ -24,6 +24,10 @@ interface ContactProps {
       value: string;
       url: string;
     };
+    linkedin: {
+      value: string;
+      url: string;
+    };
   };
 }
 
@@ -82,6 +86,24 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
             rel="noopener noreferrer"
           >
             <LinkIcon className="text-gray-400 dark:text-gray-500 cursor-pointer hover:text-red-500 dark:hover:text-red-400 transition-colors" />
+          </a>
+        </div>
+        
+        <div className="flex justify-end items-center gap-2">
+          <a 
+            href={contacts.linkedin.url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-gray-800 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+          >
+            {contacts.linkedin.value}
+          </a>
+          <a 
+            href={contacts.linkedin.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <LinkIcon className="text-gray-400 dark:text-gray-500 cursor-pointer hover:text-blue-500 dark:hover:text-blue-400 transition-colors" />
           </a>
         </div>
       </div>
