@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import profileImage from '../../assets/f1e7d123-1034-4edf-91a5-9cf21ab035a5.jpg';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useLanguage } from '../../contexts/LanguageContext';
-// Importe o PDF (ajuste o caminho conforme necessário)
+// Importe o PDF
 import pdfJornada from '../../assets/Desenvolvedor Full Stack Python Jornada de aprendizagem Fase 15.pdf';
 
 // Tipo para criar wrapper components
@@ -23,12 +23,161 @@ const FileAltIcon: React.FC<IconWrapperProps> = ({ className }) => <FaIcons.FaFi
 const LanguageIcon: React.FC<IconWrapperProps> = ({ className }) => <MdIcons.MdLanguage className={className} />;
 const MoonIcon: React.FC<IconWrapperProps> = ({ className }) => <BiIcons.BiMoon className={className} />;
 
+// CSS para esconder botões de controle do visualizador de PDF
+const hidePdfControlsStyle = `
+  @media print {
+    body { display: none; }
+  }
+
+  /* Esconde botões de download e impressão */
+  .hide-pdf-buttons #chrome-toolbar,
+  .hide-pdf-buttons .toolbar,
+  .hide-pdf-buttons #download,
+  .hide-pdf-buttons #print,
+  .hide-pdf-buttons #save,
+  .hide-pdf-buttons #viewBookmark,
+  .hide-pdf-buttons .print-download-button {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  /* Cria uma camada transparente que cobre a área dos botões */
+  .pdf-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 40px;
+    z-index: 9999;
+    background-color: rgba(0,0,0,0.01);
+    pointer-events: auto;
+  }
+
+  /* Oculta os botões no visualizador nativo do Chrome */
+  embed[type="application/pdf"] {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Customiza a aparência geral do visualizador */
+  .pdf-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+  }
+
+  .pdf-viewer {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+`;
+
+// Solução para visualizar o PDF com controles ocultos
+const PdfViewer: React.FC<{ src: string }> = ({ src }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    // Tenta ocultar os botões após o carregamento do visualizador
+    const applyButtonHiding = () => {
+      if (containerRef.current) {
+        // Encontra todos os iframes dentro do contêiner
+        const frames = containerRef.current.querySelectorAll('iframe');
+        
+        frames.forEach(frame => {
+          try {
+            // Tenta acessar o documento dentro do iframe e aplicar classes CSS
+            // Isso pode falhar devido a restrições de segurança entre domínios
+            if (frame.contentDocument) {
+              frame.contentDocument.body.classList.add('hide-pdf-buttons');
+              
+              // Esconde botões específicos
+              const buttons = frame.contentDocument.querySelectorAll('button');
+              buttons.forEach(button => {
+                if (button.textContent?.includes('Download') || 
+                    button.textContent?.includes('Print') || 
+                    button.textContent?.includes('Save')) {
+                  button.style.display = 'none';
+                }
+              });
+            }
+          } catch (e) {
+            console.log('Não foi possível acessar o iframe:', e);
+          }
+        });
+      }
+    };
+
+    const timer = setTimeout(applyButtonHiding, 1000);
+    window.addEventListener('load', applyButtonHiding);
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('load', applyButtonHiding);
+    };
+  }, []);
+
+  return (
+    <div ref={containerRef} className="pdf-container">
+      {/* Aplica HTML/Data/Object para melhor compatibilidade entre navegadores */}
+      <object
+        data={`${src}#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0`}
+        type="application/pdf"
+        className="pdf-viewer"
+      >
+        <iframe 
+          src={`${src}#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0`}
+          className="pdf-viewer"
+        >
+          <p>Seu navegador não suporta a visualização de PDF.</p>
+        </iframe>
+      </object>
+      
+      {/* Overlay para interceptar cliques nos botões */}
+      <div className="pdf-overlay"></div>
+    </div>
+  );
+};
+
 // Componente Modal separado para ser renderizado no portal
 const PdfModal: React.FC<{ isOpen: boolean; onClose: () => void; language: string }> = ({ 
   isOpen, 
   onClose,
   language
 }) => {
+  useEffect(() => {
+    // Desabilitar o clique direito durante a exibição do modal
+    const handleContextMenu = (e: MouseEvent) => {
+      e.preventDefault();
+      return false;
+    };
+
+    // Desabilitar atalhos de teclado comuns para impressão/salvar
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ctrl+P (print), Ctrl+S (save), Ctrl+Shift+S (save as)
+      if ((e.ctrlKey && (e.key === 'p' || e.key === 's')) || 
+          (e.ctrlKey && e.shiftKey && e.key === 's')) {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('contextmenu', handleContextMenu);
+      document.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   // Cria um portal para renderizar o modal fora da hierarquia do DOM
@@ -38,6 +187,8 @@ const PdfModal: React.FC<{ isOpen: boolean; onClose: () => void; language: strin
       onClick={onClose}
       style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
     >
+      <style>{hidePdfControlsStyle}</style>
+      
       <div 
         className="w-full h-full max-w-5xl max-h-[90vh] bg-white rounded-lg overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
@@ -55,12 +206,8 @@ const PdfModal: React.FC<{ isOpen: boolean; onClose: () => void; language: strin
             </svg>
           </button>
         </div>
-        <div className="flex-grow">
-          <iframe 
-            src={pdfJornada} 
-            className="w-full h-full border-none" 
-            title="Jornada de Aprendizagem"
-          />
+        <div className="flex-grow relative">
+          <PdfViewer src={pdfJornada} />
         </div>
       </div>
     </div>,
@@ -96,6 +243,23 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Função para tornar qualquer imagem do PDF clicável para abrir o modal
+  const handlePdfThumbnailClick = () => {
+    setIsPdfModalOpen(true);
+  };
+  
+  // Para exportar a função para outros componentes se necessário
+  useEffect(() => {
+    // Adiciona a função ao objeto window para que possa ser acessada globalmente se necessário
+    // @ts-ignore
+    window.openPdfModal = handlePdfThumbnailClick;
+    
+    return () => {
+      // @ts-ignore
+      delete window.openPdfModal;
     };
   }, []);
   
