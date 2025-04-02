@@ -1,5 +1,5 @@
 // src/components/contact/Contact.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 
 // Tipo para criar wrapper components
@@ -32,11 +32,29 @@ interface ContactProps {
 }
 
 const Contact: React.FC<ContactProps> = ({ contacts }) => {
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  // Detecta se é mobile baseado no tamanho da tela
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Checar inicialmente
+    checkIfMobile();
+
+    // Adicionar listener para mudanças de tamanho
+    window.addEventListener('resize', checkIfMobile);
+
+    // Limpar event listener
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
   return (
     <div>
-      <div className="grid grid-cols-1 gap-3 text-right">
+      <div className={`grid grid-cols-1 gap-3 ${isMobile ? 'text-left' : 'text-right'}`}>
         {/* Email - Red hover */}
-        <div className="flex justify-end items-center gap-2">
+        <div className={`flex ${isMobile ? 'justify-start' : 'justify-end'} items-center gap-2`}>
           <a 
             href={contacts.email.url} 
             target="_blank" 
@@ -55,7 +73,7 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
         </div>
         
         {/* WhatsApp - Green hover */}
-        <div className="flex justify-end items-center gap-2">
+        <div className={`flex ${isMobile ? 'justify-start' : 'justify-end'} items-center gap-2`}>
           <a 
             href={contacts.whatsapp.url} 
             target="_blank" 
@@ -74,7 +92,7 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
         </div>
         
         {/* GitHub - Purple hover */}
-        <div className="flex justify-end items-center gap-2">
+        <div className={`flex ${isMobile ? 'justify-start' : 'justify-end'} items-center gap-2`}>
           <a 
             href={contacts.github.url} 
             target="_blank" 
@@ -93,7 +111,7 @@ const Contact: React.FC<ContactProps> = ({ contacts }) => {
         </div>
         
         {/* LinkedIn - Blue hover */}
-        <div className="flex justify-end items-center gap-2">
+        <div className={`flex ${isMobile ? 'justify-start' : 'justify-end'} items-center gap-2`}>
           <a 
             href={contacts.linkedin.url} 
             target="_blank" 

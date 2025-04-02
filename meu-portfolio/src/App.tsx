@@ -1,19 +1,35 @@
 // src/App.tsx
-import React, { useState } from 'react';
-import Sidebar from './components/sidebar/Sidebar';
+import React, { useState, useEffect } from 'react';
+import ResponsiveNavigation from './components/navigation/ResponsiveNavigation';
 import Header from './components/header/Header';
 import Tools from './components/tools/Tools';
 import About from './components/about/About';
 import Contact from './components/contact/Contact';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
-import backgroundImage from './assets/f1e7d123-1034-4edf-91a5-9cf21ab035a5.jpg'; // Imagem do fundo
-import profileImage from './assets/IMG_20220410_230921.jpg'; // Imagem de perfil original
+import backgroundImage from './assets/f1e7d123-1034-4edf-91a5-9cf21ab035a5.jpg';
+import profileImage from './assets/IMG_20220410_230921.jpg';
 
 // Componente interno que usa o contexto de idioma
 const AppContent: React.FC = () => {
   const [activeItem, setActiveItem] = useState<string>('about');
   const { t } = useLanguage();
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Checar inicialmente
+    checkIfMobile();
+
+    // Adicionar listener para mudanças de tamanho
+    window.addEventListener('resize', checkIfMobile);
+
+    // Limpar event listener
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
 
   // Dados do perfil 
   const profileData = {
@@ -52,14 +68,12 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-row min-h-screen dark:bg-background-dark transition-colors duration-200">
-      {/* Sidebar */}
-      <div className="w-56 fixed left-0 top-0 bottom-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 overflow-y-auto transition-colors duration-200">
-        <Sidebar activeItem={activeItem} setActiveItem={setActiveItem} />
-      </div>
+    <div className="flex flex-col min-h-screen dark:bg-background-dark transition-colors duration-200">
+      {/* Navigation */}
+      <ResponsiveNavigation activeItem={activeItem} setActiveItem={setActiveItem} />
       
       {/* Main Content */}
-      <div className="ml-56 flex-1 bg-background dark:bg-background-dark min-h-screen transition-colors duration-200">
+      <div className={`${isMobile ? 'ml-0 pt-16' : 'ml-56'} flex-1 bg-background dark:bg-background-dark min-h-screen transition-all duration-200`}>
         <div className="max-w-full p-4">
           <Header 
             name={profileData.name} 
@@ -68,7 +82,7 @@ const AppContent: React.FC = () => {
             profileImage={profileData.profileImage}
           />
           
-          <div className="mt-20 bg-white dark:bg-gray-800 rounded-lg p-8 transition-colors duration-200">
+          <div className="mt-20 bg-white dark:bg-gray-800 rounded-lg p-4 md:p-8 transition-colors duration-200">
             <Tools />
             
             {/* About and Contact in a flex layout */}
