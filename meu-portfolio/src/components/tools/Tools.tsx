@@ -1,7 +1,7 @@
 // src/components/tools/Tools.tsx
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import GoogleIcon from '../icons/GoogleIcon';
+import { GoogleIcon, PythonIcon } from '../icons/GoogleIcon';
 
 // Interface para ferramenta
 interface Tool {
@@ -13,7 +13,7 @@ const Tools: React.FC = () => {
   const { t } = useLanguage();
   
   const tools: Tool[] = [
-    { name: 'Python', icon: '🐍' },
+    { name: 'Python', icon: <PythonIcon /> },
     { name: 'Django', icon: '🦄' },
     { name: 'Flask', icon: '🧪' },
     { name: 'JavaScript', icon: '📜' },
