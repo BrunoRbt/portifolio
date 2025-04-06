@@ -1,11 +1,12 @@
 // src/components/tools/Tools.tsx
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import GoogleIcon from '../icons/GoogleIcon';
 
 // Interface para ferramenta
 interface Tool {
   name: string;
-  icon: string;
+  icon: React.ReactNode;
 }
 
 const Tools: React.FC = () => {
@@ -13,7 +14,7 @@ const Tools: React.FC = () => {
   
   const tools: Tool[] = [
     { name: 'Python', icon: '🐍' },
-    { name: 'Django', icon: '🌐' },
+    { name: 'Django', icon: '🦄' },
     { name: 'Flask', icon: '🧪' },
     { name: 'JavaScript', icon: '📜' },
     { name: 'TypeScript', icon: '🔷' },
@@ -31,7 +32,7 @@ const Tools: React.FC = () => {
     { name: 'Git', icon: '📊' },
     { name: 'Linux', icon: '🐧' },
     { name: 'AWS', icon: '☁️' },
-    { name: 'GCP', icon: '🌐' }, // Google Cloud Platform adicionado
+    { name: 'GCP', icon: <GoogleIcon /> },
     { name: 'Heroku', icon: '🟣' },
     { name: 'Figma', icon: '🖌️' },
     { name: 'Photoshop', icon: '🖼️' },
