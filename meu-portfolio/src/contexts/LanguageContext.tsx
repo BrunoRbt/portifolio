@@ -17,7 +17,8 @@ export const translations = {
     projects: 'Projetos',
     contact: 'Fale comigo',
     articles: 'Artigos',
-    certifications: 'Formações', // Nova tradução
+    certifications: 'Formações',
+    resume: 'Currículo', // Nova tradução
     
     // Configurações
     settings: 'CONFIGURAÇÕES',
@@ -44,7 +45,8 @@ export const translations = {
     projects: 'Projects',
     contact: 'Contact me',
     articles: 'Articles',
-    certifications: 'Education', // Nova tradução em inglês
+    certifications: 'Education',
+    resume: 'Resume', // Nova tradução em inglês
     
     // Settings
     settings: 'SETTINGS',
@@ -63,6 +65,9 @@ export const translations = {
     tools: 'Tools',
   }
 };
+
+// Definindo o tipo TranslationKeys a partir das chaves do objeto de tradução
+export type TranslationKeys = keyof typeof translations.pt;
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Verificar se há um idioma salvo no localStorage, ou usar o idioma do navegador como fallback
@@ -94,14 +99,14 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 };
 
 // Hook personalizado para facilitar o uso do contexto
-export const useLanguage = (): LanguageContextType & { t: (key: keyof typeof translations.pt) => string } => {
+export const useLanguage = (): LanguageContextType & { t: (key: TranslationKeys) => string } => {
   const context = useContext(LanguageContext);
   if (context === undefined) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
   
   // Função para obter a tradução com base na chave
-  const t = (key: keyof typeof translations.pt) => {
+  const t = (key: TranslationKeys) => {
     return translations[context.language][key] || key;
   };
   

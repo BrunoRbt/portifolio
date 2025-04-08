@@ -4,6 +4,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import profileImage from '../../assets/f1e7d123-1034-4edf-91a5-9cf21ab035a5.jpg';
 import pdfJornada from '../../assets/Desenvolvedor Full Stack Python Jornada de aprendizagem Fase 15.pdf';
+
 import { 
   UserIcon, 
   StarIcon, 
@@ -11,7 +12,8 @@ import {
   FileAltIcon, 
   MoonIcon,
   GraduationIcon,
-  LanguageIcon
+  LanguageIcon,
+  ResumeIcon
 } from './SidebarIcons';
 import { 
   NavigationItem, 
@@ -23,6 +25,7 @@ import {
 import ContactModal from '../modals/ContactModal';
 import PdfModal from '../modals/PdfModal';
 import ProjectsModal from '../modals/ProjectsModal';
+import ResumeModal from '../modals/ResumeModal';
 
 // Tipo de contatos
 type Contacts = {
@@ -57,8 +60,13 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isProjectsModalOpen, setIsProjectsModalOpen] = useState(false);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
   const themeMenuRef = useRef<HTMLDivElement>(null);
   const languageMenuRef = useRef<HTMLDivElement>(null);
+  
+  // IDs dos currículos no Google Drive
+  const ptResumeGoogleDriveId = "1QNAQGIw5QPB3_DeXCE-3yubX3P3jCuwo";
+  const enResumeGoogleDriveId = "10OCat1iIlcLLV-Zsrq9L2avx6P1Y5OLs";
   
   // Dados de contato
   const contacts: Contacts = {
@@ -125,6 +133,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
       setIsContactModalOpen(true);
     } else if (item === 'articles') {
       setIsPdfModalOpen(true);
+    } else if (item === 'resume') {
+      setIsResumeModalOpen(true);
     }
     // Para 'about' e 'certifications', apenas mudar o activeItem sem abrir modal
   };
@@ -173,6 +183,14 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
           label={t('certifications')}
           isActive={activeItem === 'certifications'}
           onClick={() => handleNavItemClick('certifications')}
+        />
+        
+        {/* Item para Currículo - Com modal */}
+        <NavigationItem 
+          icon={<ResumeIcon className="text-gray-500 dark:text-gray-400" />}
+          label={t('resume')}
+          isActive={activeItem === 'resume'}
+          onClick={() => handleNavItemClick('resume')}
         />
         
         {/* Configurações */}
@@ -285,6 +303,16 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
         isOpen={isProjectsModalOpen}
         onClose={() => setIsProjectsModalOpen(false)}
         language={language}
+      />
+      
+      <ResumeModal 
+        isOpen={isResumeModalOpen}
+        onClose={() => setIsResumeModalOpen(false)}
+        language={language}
+        ptPdfSrc=""
+        enPdfSrc=""
+        ptGoogleDriveId={ptResumeGoogleDriveId}
+        enGoogleDriveId={enResumeGoogleDriveId}
       />
     </>
   );

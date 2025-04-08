@@ -19,6 +19,9 @@ export const LanguageIcon: React.FC<IconWrapperProps> = ({ className }) => <MdIc
 export const MoonIcon: React.FC<IconWrapperProps> = ({ className }) => <BiIcons.BiMoon className={className} />;
 export const LinkIcon: React.FC<IconWrapperProps> = ({ className }) => <FaIcons.FaLink className={className} />;
 
+// Ícone para o currículo
+export const ResumeIcon: React.FC<IconWrapperProps> = ({ className }) => <FaIcons.FaFileContract className={className} />;
+
 // Usando um SVG inline para o ícone de formação/graduação
 export const GraduationIcon: React.FC<IconWrapperProps> = ({ className }) => (
   <svg 

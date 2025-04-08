@@ -18,7 +18,7 @@ import pdfJornada from './assets/Desenvolvedor Full Stack Python Jornada de apre
 // Componente interno que usa o contexto de idioma
 const AppContent: React.FC = () => {
   const [activeItem, setActiveItem] = useState<string>('about');
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isMobile, setIsMobile] = useState<boolean>(false);
   
   // Estado para o modal de certificados
@@ -113,6 +113,15 @@ const AppContent: React.FC = () => {
             {activeItem === 'certifications' ? (
               <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
                 <Certifications onOpenPdf={handleOpenCertificate} />
+              </div>
+            ) : activeItem === 'resume' ? (
+              <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 transition-colors duration-200">{t('resume')}</h2>
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
+                  {language === 'pt' 
+                    ? 'Selecione "Currículo" no menu lateral para visualizar o documento completo em português ou inglês.' 
+                    : 'Select "Resume" in the sidebar menu to view the full document in Portuguese or English.'}
+                </p>
               </div>
             ) : (
               <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
