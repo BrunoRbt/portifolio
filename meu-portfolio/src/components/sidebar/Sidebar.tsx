@@ -10,7 +10,8 @@ import {
   CommentIcon, 
   FileAltIcon, 
   MoonIcon,
-  GraduationIcon
+  GraduationIcon,
+  LanguageIcon
 } from './SidebarIcons';
 import { 
   NavigationItem, 
@@ -183,7 +184,13 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
           {/* Menu de Idioma */}
           <div ref={languageMenuRef}>
             <SettingsItem
-              icon={<MoonIcon className="text-gray-500 dark:text-gray-400" />}
+              icon={
+                <img 
+                  src={language === 'pt' ? "https://flagcdn.com/w20/br.png" : "https://flagcdn.com/w20/us.png"} 
+                  alt={language === 'pt' ? "Bandeira do Brasil" : "Bandeira dos EUA"}
+                  className="w-5 h-auto"
+                />
+              }
               title={t('language')}
               subtitle={language === 'pt' ? t('portuguese') : t('english')}
               isOpen={languageMenuOpen}
