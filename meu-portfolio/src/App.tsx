@@ -78,7 +78,7 @@ const AppContent: React.FC = () => {
       },
       whatsapp: {
         value: 'Whatssap',
-        url: 'https://w.app/us4u1n'
+        url: 'https://wa.me/5581997374007?text=Oi%20Bruno!%20vim%20atrav%C3%A9s%20do%20seu%20portif%C3%B3lio'
       },
       github: {
         value: 'Github',
