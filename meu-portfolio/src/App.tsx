@@ -73,8 +73,8 @@ const AppContent: React.FC = () => {
     },
     contacts: {
       email: {
-        value: 'richard2oliver1@gmail.com',
-        url: 'https://mail.google.com/mail/?view=cm&fs=1&to=richard2oliver1@gmail.com&su=Contato%20atrav%C3%A9s%20do%20Portf%C3%B3lio&body=Ol%C3%A1%20Richard%2C%0A%0AEstou%20entrando%20em%20contato%20atrav%C3%A9s%20do%20seu%20portf%C3%B3lio.'
+        value: 'brunoroberto.dev8@gmail.com',
+        url: 'https://mail.google.com/mail/?view=cm&fs=1&to=brunoroberto.dev8@gmail.com&su=Oi%20Bruno!%20vim%20através%20do%20seu%20portfólio'
       },
       whatsapp: {
         value: 'Whatssap',

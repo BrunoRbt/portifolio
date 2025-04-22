@@ -71,8 +71,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
   // Dados de contato
   const contacts: Contacts = {
     email: {
-      value: 'richard2oliver1@gmail.com',
-      url: 'https://mail.google.com/mail/?view=cm&fs=1&to=richard2oliver1@gmail.com&su=Contato%20Portfolio'
+      value: 'brunoroberto.dev8@gmail.com',
+      url: 'https://mail.google.com/mail/?view=cm&fs=1&to=brunoroberto.dev8@gmail.com&su=Oi%20Bruno!%20vim%20através%20do%20seu%20portfólio'
     },
     whatsapp: {
       value: 'WhatsApp',
