@@ -18,7 +18,7 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
   const [isLoading, setIsLoading] = useState(true);
 
   // ***** ALTERAÇÃO AQUI *****
-  const pdfGoogleDriveId = "1uovJawGQKD3_JJglCC0cYWSYVzq9q-Gv"; // Novo ID do PDF a ser usado sempre
+  const pdfGoogleDriveId = "1apSVRD1qts-P9u1MMf9Gx3AZkqwyDj9c"; // Novo ID do PDF a ser usado sempre
   // ***** FIM DA ALTERAÇÃO *****
 
   // URL única (usa o novo ID)
