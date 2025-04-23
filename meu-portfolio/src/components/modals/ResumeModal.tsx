@@ -7,29 +7,21 @@ interface ResumeModalProps {
   isOpen: boolean;
   onClose: () => void;
   language: string;
-  ptPdfSrc: string;
-  enPdfSrc: string;
-  ptGoogleDriveId: string;
-  enGoogleDriveId: string;
 }
 
 const ResumeModal: React.FC<ResumeModalProps> = ({ 
   isOpen, 
   onClose,
-  language,
-  ptPdfSrc,
-  enPdfSrc,
-  ptGoogleDriveId,
-  enGoogleDriveId
+  language
 }) => {
   const [isMobile, setIsMobile] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState<'pt' | 'en'>(language === 'pt' ? 'pt' : 'en');
   const [isLoading, setIsLoading] = useState(true);
+
+  // ID para o Google Drive do documento do currículo
+  const singleGoogleDriveId = "118fs_KGtXzkYRfS_mAxQMeZ0OGRmFep4";
   
-  useEffect(() => {
-    // Definir o idioma inicial com base no idioma da aplicação
-    setSelectedLanguage(language === 'pt' ? 'pt' : 'en');
-  }, [language]);
+  // URL para visualizar o documento do Google Drive
+  const googleDriveViewerUrl = `https://docs.google.com/document/d/${singleGoogleDriveId}/preview`;
   
   useEffect(() => {
     setIsMobile(isMobileDevice());
@@ -66,16 +58,9 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
     if (isOpen) {
       document.addEventListener('contextmenu', handleContextMenu);
       document.addEventListener('keydown', handleKeyDown);
-      // Resetar o estado de carregamento sempre que o modal é aberto
-      setIsLoading(true);
-      // Simular tempo de carregamento
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-      }, 2000);
       
-      return () => {
-        clearTimeout(timer);
-      };
+      // Resetar o estado de carregamento quando o modal é aberto
+      setIsLoading(true);
     }
 
     return () => {
@@ -90,12 +75,6 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
   };
 
   if (!isOpen) return null;
-
-  // Obter o Google Drive ID correto com base no idioma selecionado
-  const currentGoogleDriveId = selectedLanguage === 'pt' ? ptGoogleDriveId : enGoogleDriveId;
-  
-  // URL para visualizar o PDF do Google Drive
-  const googleDriveViewerUrl = `https://drive.google.com/file/d/${currentGoogleDriveId}/preview`;
 
   // Estilos específicos para mobile
   const containerStyle = isMobile 
@@ -112,7 +91,7 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
     
   const contentStyle = isMobile
     ? {
-        height: 'calc(100% - 96px)'  // Ajustar altura considerando o header e o seletor de idioma
+        height: 'calc(100% - 56px)'  // Ajustar altura considerando apenas o header
       }
     : {};
 
@@ -140,44 +119,6 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
-        </div>
-        
-        {/* Seletor de idioma do currículo */}
-        <div className="flex items-center justify-center bg-gray-50 dark:bg-gray-600 p-3">
-          <div className="flex rounded-md shadow-sm" role="group">
-            <button
-              type="button"
-              className={`px-4 py-2 text-sm font-medium border ${selectedLanguage === 'pt' 
-                ? 'bg-blue-600 text-white border-blue-600' 
-                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600'}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedLanguage('pt');
-                setIsLoading(true);
-              }}
-            >
-              <div className="flex items-center">
-                <img src="https://flagcdn.com/w20/br.png" alt="Bandeira do Brasil" className="mr-2 w-5" />
-                Português
-              </div>
-            </button>
-            <button
-              type="button"
-              className={`px-4 py-2 text-sm font-medium border ${selectedLanguage === 'en' 
-                ? 'bg-blue-600 text-white border-blue-600' 
-                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600'}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedLanguage('en');
-                setIsLoading(true);
-              }}
-            >
-              <div className="flex items-center">
-                <img src="https://flagcdn.com/w20/us.png" alt="Bandeira dos EUA" className="mr-2 w-5" />
-                English
-              </div>
-            </button>
-          </div>
         </div>
         
         <div className="flex-grow relative" style={contentStyle}>

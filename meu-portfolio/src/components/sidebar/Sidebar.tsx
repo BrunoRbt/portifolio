@@ -309,10 +309,6 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, setActiveItem }) => {
         isOpen={isResumeModalOpen}
         onClose={() => setIsResumeModalOpen(false)}
         language={language}
-        ptPdfSrc=""
-        enPdfSrc=""
-        ptGoogleDriveId={ptResumeGoogleDriveId}
-        enGoogleDriveId={enResumeGoogleDriveId}
       />
     </>
   );
