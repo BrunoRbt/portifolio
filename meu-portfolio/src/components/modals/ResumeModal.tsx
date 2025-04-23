@@ -18,18 +18,17 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
   const [isLoading, setIsLoading] = useState(true);
 
   // ***** ALTERAÇÃO AQUI *****
-  // ID para o Google Drive do documento PDF do currículo
-  const pdfGoogleDriveId = "11ucHiR9w7soHXTRw_2FXjqxq9jzDQ9wG"; // ID do seu PDF
-
-  // URL para visualizar o PDF do Google Drive (usando /preview)
-  const googleDriveViewerUrl = `https://drive.google.com/file/d/${pdfGoogleDriveId}/preview`;
+  const pdfGoogleDriveId = "1uovJawGQKD3_JJglCC0cYWSYVzq9q-Gv"; // Novo ID do PDF a ser usado sempre
   // ***** FIM DA ALTERAÇÃO *****
 
+  // URL única (usa o novo ID)
+  const resumeUrl = `https://drive.google.com/file/d/${pdfGoogleDriveId}/preview`;
+
   useEffect(() => {
-    // Detecta se é mobile e adiciona listener de resize
-    setIsMobile(isMobileDevice());
-    const handleResize = () => setIsMobile(isMobileDevice());
-    window.addEventListener('resize', handleResize);
+    // Detecta se é mobile (ainda necessário para estilos) e adiciona listener de resize
+    const checkDevice = () => setIsMobile(isMobileDevice());
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
 
     // Previne menu de contexto e atalhos de teclado
     const handleContextMenu = (e: MouseEvent) => e.preventDefault();
@@ -50,11 +49,11 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
       setIsLoading(true); // Reseta o loading ao abrir
     }
 
-    // Cleanup: remove os listeners quando o modal fecha ou componente desmonta
+    // Cleanup: remove os listeners
     return () => {
       document.removeEventListener('contextmenu', handleContextMenu);
       document.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', checkDevice);
     };
   }, [isOpen, onClose]); // Dependências do useEffect
 
@@ -66,7 +65,7 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
   // Não renderiza nada se não estiver aberto
   if (!isOpen) return null;
 
-  // Estilos para mobile (tela cheia)
+  // Estilos para mobile (tela cheia) - ainda necessário
   const containerStyle = isMobile
     ? {
         width: '100%', height: '100%', maxWidth: '100%', maxHeight: '100%',
@@ -81,16 +80,16 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
   return ReactDOM.createPortal(
     <div // Overlay
       className="fixed inset-0 bg-black bg-opacity-80 z-[9999] flex justify-center items-center p-0"
-      onClick={onClose} // Fecha ao clicar no overlay
+      onClick={onClose}
       style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
     >
       <div // Container do Modal
         className="w-full h-full max-w-5xl max-h-[90vh] bg-white rounded-lg overflow-hidden flex flex-col"
-        onClick={(e) => e.stopPropagation()} // Evita fechar ao clicar dentro do modal
+        onClick={(e) => e.stopPropagation()}
         style={containerStyle} // Aplica estilos mobile/desktop
       >
         {/* Cabeçalho */}
-        <div className="flex justify-between items-center p-4 bg-gray-100 dark:bg-gray-700 flex-shrink-0"> {/* flex-shrink-0 evita que o header encolha */}
+        <div className="flex justify-between items-center p-4 bg-gray-100 dark:bg-gray-700 flex-shrink-0">
           <h3 className="text-lg font-medium dark:text-white">
             {language === 'pt' ? "Currículo" : "Resume"}
           </h3>
@@ -105,7 +104,7 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
         </div>
 
         {/* Área do Conteúdo (Iframe) */}
-        <div className="flex-grow relative" style={contentStyle}> {/* flex-grow ocupa espaço restante */}
+        <div className="flex-grow relative" style={contentStyle}>
           {/* Indicador de Loading */}
           {isLoading && (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-white dark:bg-gray-800 z-10">
@@ -115,19 +114,19 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
               </p>
             </div>
           )}
-          {/* Iframe */}
+          {/* Iframe com a URL única do PDF */}
           <iframe
-            key={googleDriveViewerUrl} // Adicionar key pode ajudar a forçar recarregamento se a URL mudar
-            src={googleDriveViewerUrl}
-            className="w-full h-full border-0" // Ocupa todo o espaço do pai (flex-grow div)
+            key={resumeUrl} // Usar a URL como key ainda é útil
+            src={resumeUrl} // Usa a URL única do PDF
+            className="w-full h-full border-0"
             onLoad={handleIframeLoad}
             allowFullScreen
-            title={language === 'pt' ? "Currículo" : "Resume"} // Boa prática adicionar title
+            title={language === 'pt' ? "Currículo" : "Resume"}
           />
         </div>
       </div>
     </div>,
-    document.body // Renderiza no body
+    document.body
   );
 };
 
