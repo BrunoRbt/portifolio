@@ -1,4 +1,4 @@
-// src/App.tsx
+// src/App.tsx - modificado para incluir o SplashScreen
 import React, { useState, useEffect } from 'react';
 import ResponsiveNavigation from './components/navigation/ResponsiveNavigation';
 import Header from './components/header/Header';
@@ -7,6 +7,7 @@ import About from './components/about/About';
 import Contact from './components/contact/Contact';
 import Certifications from './components/certifications/Certifications';
 import CertificationModal from './components/modals/CertificationModal';
+import SplashScreen from './components/splash/SplashScreen'; // Importando o novo componente
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import backgroundImage from './assets/f1e7d123-1034-4edf-91a5-9cf21ab035a5.jpg';
@@ -29,6 +30,9 @@ const AppContent: React.FC = () => {
 
   // Estado para o modal de PDF de artigos
   const [isPdfModalOpen, setIsPdfModalOpen] = useState<boolean>(false);
+  
+  // Estado para controlar a exibição do splash screen
+  const [showSplash, setShowSplash] = useState<boolean>(true);
 
   useEffect(() => {
     const checkIfMobile = () => {
@@ -44,6 +48,11 @@ const AppContent: React.FC = () => {
     // Limpar event listener
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
+
+  // Função para fechar o splash screen
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+  };
 
   // Função para abrir o modal de certificado
   const handleOpenCertificate = (pdfUrl: string, title: string, googleDriveId: string) => {
@@ -92,74 +101,79 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen dark:bg-background-dark transition-colors duration-200">
-      {/* Navigation */}
-      <ResponsiveNavigation activeItem={activeItem} setActiveItem={setActiveItem} />
+    <>
+      {/* Exibir o splash screen se o estado showSplash for true */}
+      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
       
-      {/* Main Content */}
-      <div className={`${isMobile ? 'ml-0 pt-16' : 'ml-56'} flex-1 bg-background dark:bg-background-dark min-h-screen transition-all duration-200`}>
-        <div className="max-w-full p-4">
-          <Header 
-            name={profileData.name} 
-            title={profileData.title} 
-            backgroundImage={profileData.backgroundImage}
-            profileImage={profileData.profileImage}
-          />
-          
-          <div className="mt-20 bg-white dark:bg-gray-800 rounded-lg p-4 md:p-8 transition-colors duration-200">
-            <Tools />
+      <div className="flex flex-col min-h-screen dark:bg-background-dark transition-colors duration-200">
+        {/* Navigation */}
+        <ResponsiveNavigation activeItem={activeItem} setActiveItem={setActiveItem} />
+        
+        {/* Main Content */}
+        <div className={`${isMobile ? 'ml-0 pt-16' : 'ml-56'} flex-1 bg-background dark:bg-background-dark min-h-screen transition-all duration-200`}>
+          <div className="max-w-full p-4">
+            <Header 
+              name={profileData.name} 
+              title={profileData.title} 
+              backgroundImage={profileData.backgroundImage}
+              profileImage={profileData.profileImage}
+            />
             
-            {/* Conteúdo baseado no item ativo */}
-            {activeItem === 'certifications' ? (
-              <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
-                <Certifications onOpenPdf={handleOpenCertificate} />
-              </div>
-            ) : activeItem === 'resume' ? (
-              <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 transition-colors duration-200">{t('resume')}</h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  {language === 'pt' 
-                    ? 'Selecione "Currículo" no menu lateral para visualizar o documento completo em português ou inglês.' 
-                    : 'Select "Resume" in the sidebar menu to view the full document in Portuguese or English.'}
-                </p>
-              </div>
-            ) : (
-              <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 transition-colors duration-200">{t('about')}</h2>
-                
-                <div className="flex flex-col md:flex-row">
-                  <div className="flex-1 md:pr-12">
-                    <About aboutText={profileData.about} aboutTextEn={profileData.aboutEn} />
-                  </div>
+            <div className="mt-20 bg-white dark:bg-gray-800 rounded-lg p-4 md:p-8 transition-colors duration-200">
+              <Tools />
+              
+              {/* Conteúdo baseado no item ativo */}
+              {activeItem === 'certifications' ? (
+                <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
+                  <Certifications onOpenPdf={handleOpenCertificate} />
+                </div>
+              ) : activeItem === 'resume' ? (
+                <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
+                  <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 transition-colors duration-200">{t('resume')}</h2>
+                  <p className="text-gray-700 dark:text-gray-300 mb-4">
+                    {language === 'pt' 
+                      ? 'Selecione "Currículo" no menu lateral para visualizar o documento completo em português ou inglês.' 
+                      : 'Select "Resume" in the sidebar menu to view the full document in Portuguese or English.'}
+                  </p>
+                </div>
+              ) : (
+                <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
+                  <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 transition-colors duration-200">{t('about')}</h2>
                   
-                  <div className="mt-8 md:mt-0 md:w-72">
-                    <Contact contacts={profileData.contacts} />
+                  <div className="flex flex-col md:flex-row">
+                    <div className="flex-1 md:pr-12">
+                      <About aboutText={profileData.about} aboutTextEn={profileData.aboutEn} />
+                    </div>
+                    
+                    <div className="mt-8 md:mt-0 md:w-72">
+                      <Contact contacts={profileData.contacts} />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
+
+        {/* Modal para visualizar PDF de jornada/artigos */}
+        <CertificationModal
+          isOpen={isPdfModalOpen}
+          onClose={() => setIsPdfModalOpen(false)}
+          pdfSrc={pdfJornada}
+          title={t('articles')}
+          googleDriveId="1cZ0kKOcjM5trTxnO3_VhHZQQdz7k2N1W" // ID do Google Drive para o PDF de artigos
+        />
+
+        {/* Modal para visualizar certificados */}
+        <CertificationModal
+          isOpen={isCertModalOpen}
+          onClose={() => setIsCertModalOpen(false)}
+          pdfSrc={currentCertPdf}
+          title={currentCertTitle}
+          googleDriveId={currentGoogleDriveId}
+        />
       </div>
-
-      {/* Modal para visualizar PDF de jornada/artigos */}
-      <CertificationModal
-        isOpen={isPdfModalOpen}
-        onClose={() => setIsPdfModalOpen(false)}
-        pdfSrc={pdfJornada}
-        title={t('articles')}
-        googleDriveId="1cZ0kKOcjM5trTxnO3_VhHZQQdz7k2N1W" // ID do Google Drive para o PDF de artigos
-      />
-
-      {/* Modal para visualizar certificados */}
-      <CertificationModal
-        isOpen={isCertModalOpen}
-        onClose={() => setIsCertModalOpen(false)}
-        pdfSrc={currentCertPdf}
-        title={currentCertTitle}
-        googleDriveId={currentGoogleDriveId}
-      />
-    </div>
+    </>
   );
 };
 
