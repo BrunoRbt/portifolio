@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { isMobileDevice } from '../sidebar/styles/pdfStyles';
-import cvPdf from '../../assets/CV Bruno.docx.pdf'; // Importa o novo PDF local
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -18,14 +17,15 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
   const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // ID do Google Drive para visualização em mobile
-  const pdfGoogleDriveId = "1q_wHSEvsYD5slKHjUzW2_CowNYkBenCw";
-  
-  // URL para visualização mobile (usando Google Drive)
-  const googleDriveUrl = `https://drive.google.com/file/d/${pdfGoogleDriveId}/preview`;
+  // ***** ALTERAÇÃO AQUI *****
+  const pdfGoogleDriveId = "1q_wHSEvsYD5slKHjUzW2_CowNYkBenCw"; // Novo ID do PDF a ser usado sempre
+  // ***** FIM DA ALTERAÇÃO *****
+
+  // URL única (usa o novo ID)
+  const resumeUrl = `https://drive.google.com/file/d/${pdfGoogleDriveId}/preview`;
 
   useEffect(() => {
-    // Detecta se é mobile e adiciona listener de resize
+    // Detecta se é mobile (ainda necessário para estilos) e adiciona listener de resize
     const checkDevice = () => setIsMobile(isMobileDevice());
     checkDevice();
     window.addEventListener('resize', checkDevice);
@@ -55,7 +55,7 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
       document.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('resize', checkDevice);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose]); // Dependências do useEffect
 
   // Chamado quando o iframe termina de carregar
   const handleIframeLoad = () => {
@@ -65,7 +65,7 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
   // Não renderiza nada se não estiver aberto
   if (!isOpen) return null;
 
-  // Estilos para mobile (tela cheia)
+  // Estilos para mobile (tela cheia) - ainda necessário
   const containerStyle = isMobile
     ? {
         width: '100%', height: '100%', maxWidth: '100%', maxHeight: '100%',
@@ -73,9 +73,10 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
       }
     : {};
 
-  // Estilos do conteúdo
+  // Estilos do conteúdo (deixe o flexbox cuidar da altura no mobile)
   const contentStyle = isMobile ? {} : {};
 
+  // Renderiza o modal usando Portal
   return ReactDOM.createPortal(
     <div // Overlay
       className="fixed inset-0 bg-black bg-opacity-80 z-[9999] flex justify-center items-center p-0"
@@ -85,14 +86,14 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
       <div // Container do Modal
         className="w-full h-full max-w-5xl max-h-[90vh] bg-white rounded-lg overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
-        style={containerStyle}
+        style={containerStyle} // Aplica estilos mobile/desktop
       >
         {/* Cabeçalho */}
         <div className="flex justify-between items-center p-4 bg-gray-100 dark:bg-gray-700 flex-shrink-0">
           <h3 className="text-lg font-medium dark:text-white">
             {language === 'pt' ? "Currículo" : "Resume"}
           </h3>
-          <button
+          <button /* Botão Fechar */
             className="text-gray-500 hover:text-red-500 dark:text-gray-300 dark:hover:text-red-400"
             onClick={onClose}
           >
@@ -113,24 +114,15 @@ const ResumeModal: React.FC<ResumeModalProps> = ({
               </p>
             </div>
           )}
-          
-          {/* Condicional: Arquivo local para desktop, Google Drive para mobile */}
-          {isMobile ? (
-            <iframe
-              src={googleDriveUrl}
-              className="w-full h-full border-0"
-              onLoad={handleIframeLoad}
-              allowFullScreen
-              title={language === 'pt' ? "Currículo" : "Resume"}
-            />
-          ) : (
-            <iframe
-              src={cvPdf}
-              className="w-full h-full border-0"
-              onLoad={handleIframeLoad}
-              title={language === 'pt' ? "Currículo" : "Resume"}
-            />
-          )}
+          {/* Iframe com a URL única do PDF */}
+          <iframe
+            key={resumeUrl} // Usar a URL como key ainda é útil
+            src={resumeUrl} // Usa a URL única do PDF
+            className="w-full h-full border-0"
+            onLoad={handleIframeLoad}
+            allowFullScreen
+            title={language === 'pt' ? "Currículo" : "Resume"}
+          />
         </div>
       </div>
     </div>,
