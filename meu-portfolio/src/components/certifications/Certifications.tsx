@@ -6,6 +6,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import pythonCertificate from '../../assets/1730270400256.pdf'; // Full Stack Python
 import tiCertificate from '../../assets/1728537740983.pdf'; // TI do Zero ao Pro
 import careerCertificate from '../../assets/1728537826496.pdf'; // Plano de Carreira
+import agentspaceCertificate from '../../assets/DeployAgentspace_Badge20250505-25-te4v1n.pdf'; // Novo certificado Google Cloud
 
 interface CertificateProps {
   title: string;
@@ -68,6 +69,17 @@ const Certifications: React.FC<CertificationsProps> = ({ onOpenPdf }) => {
   const { t } = useLanguage();
   
   const certificates = [
+    // Novo certificado do Google Cloud adicionado no topo da lista
+    {
+      title: "Deploy Agentspace - Google Cloud",
+      institution: "Google Cloud",
+      date: "05/05/2025",
+      duration: "Certificação Técnica",
+      modules: "Generative AI",
+      pdfUrl: agentspaceCertificate,
+      googleDriveId: "1Ge3X-z8-SNsETdJLYqXCaGNRa2diFmVb", // ID correto do Google Drive
+      color: "border-blue-500"
+    },
     {
       title: "Profissão: Desenvolvedor Full Stack Python",
       institution: "EBAC - Escola Britânica de Artes Criativas & Tecnologia",
